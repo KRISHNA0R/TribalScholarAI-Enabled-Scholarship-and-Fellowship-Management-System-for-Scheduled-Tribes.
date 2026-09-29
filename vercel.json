@@ -6,7 +6,6 @@
   "outputDirectory": "client/dist",
   "functions": {
     "api/index.js": {
-      "memory": 1024,
       "maxDuration": 30
     }
   },
