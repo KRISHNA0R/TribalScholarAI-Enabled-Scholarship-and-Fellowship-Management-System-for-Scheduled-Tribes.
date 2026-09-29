@@ -17,6 +17,7 @@ export default {
   'nav.helpdesk': 'সহায়তা ডেস্ক',
   'nav.govtLine': 'ভারত সরকার • উপজাতি বিষয়ক মন্ত্রণালয়',
   'nav.sihLine': 'স্মার্ট শিক্ষা থিম',
+  'nav.psRef': 'SIH 2026 · PS 26239',
   'nav.highContrast': 'উচ্চ কনট্রাস্ট',
   'nav.standardContrast': 'স্বাভাবিক কনট্রাস্ট',
   'nav.decreaseFont': 'ফন্টের আকার কমান',

@@ -17,6 +17,7 @@ export default {
   'nav.helpdesk': 'ᱜᱚᱲᱚ ᱰᱮᱥᱠ',
   'nav.govtLine': 'ᱥᱤᱧᱚᱛ ᱥᱚᱨᱠᱟᱨ • ᱟᱹᱫᱤᱵᱟᱹᱥᱤ ᱠᱟᱹᱢᱤ ᱢᱚᱱᱛᱨᱟᱞᱚᱭ',
   'nav.sihLine': 'ᱥᱢᱟᱨᱴ ᱥᱮᱪᱮᱫ ᱵᱤᱥᱚᱭ',
+  'nav.psRef': 'SIH 2026 · PS 26239',
   'nav.highContrast': 'ᱢᱟᱨᱟᱝ ᱠᱚᱱᱴᱨᱟᱥᱴ',
   'nav.standardContrast': 'ᱥᱟᱫᱷᱟᱨᱚᱬ ᱠᱚᱱᱴᱨᱟᱥᱴ',
   'nav.decreaseFont': 'ᱚᱞ ᱦᱩᱰᱤᱧᱟᱹᱭᱢᱮ',

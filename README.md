@@ -9,6 +9,8 @@
 **AI-Enabled Scholarship & Fellowship Management System for Scheduled Tribes**
 **Ministry of Tribal Affairs, Government of India**
 
+> **SIH 2026  ·  Problem Statement `PS 26239`**  ·  Theme: *Smart Education*
+
 <img src="client/public/banner.jpg" alt="TribalScholar AI — scholarship, verification and disbursement for Scheduled Tribes" width="100%" />
 
 [![CI](https://github.com/KRISHNA0R/TribalScholarAI-Enabled-Scholarship-and-Fellowship-Management-System-for-Scheduled-Tribes/actions/workflows/ci.yml/badge.svg)](https://github.com/KRISHNA0R/TribalScholarAI-Enabled-Scholarship-and-Fellowship-Management-System-for-Scheduled-Tribes/actions/workflows/ci.yml)

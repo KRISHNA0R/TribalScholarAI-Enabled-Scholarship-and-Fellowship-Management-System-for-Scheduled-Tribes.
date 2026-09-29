@@ -79,6 +79,7 @@ export const createApp = () => {
       success: true,
       system: 'TribalScholar AI — MoTA Scholarship & Fellowship API',
       status: 'OPERATIONAL',
+      problemStatement: 'SIH 2026 · PS 26239',
       timestamp: new Date().toISOString(),
       environment: process.env.NODE_ENV || 'development',
       runtime: process.env.VERCEL ? 'vercel-serverless' : 'node-server',

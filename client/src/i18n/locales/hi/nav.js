@@ -17,6 +17,7 @@ export default {
   'nav.helpdesk': 'सहायता डेस्क',
   'nav.govtLine': 'भारत सरकार • जनजातीय कार्य मंत्रालय',
   'nav.sihLine': 'स्मार्ट शिक्षा थीम',
+  'nav.psRef': 'SIH 2026 · PS 26239',
   'nav.highContrast': 'उच्च कंट्रास्ट',
   'nav.standardContrast': 'सामान्य कंट्रास्ट',
   'nav.decreaseFont': 'फ़ॉन्ट आकार घटाएँ',

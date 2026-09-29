@@ -15,7 +15,10 @@ import { fileURLToPath, pathToFileURL } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const LOCALES_DIR = path.join(__dirname, '..', 'client', 'src', 'i18n', 'locales');
 const SOURCE = 'en';
-const FALLBACK_ALLOWED = /\b(MoTA|PVTG|DBT|PFMS|APBS|IFSC|AISHE|U-DISE|NSFST|NOS|NFST|AI|OCR|SHA-256|QR|PDF|JSON|API|UID|State|ST|SC|OBC|EWS|DBT)\b/;
+// Proper nouns, technical terms and identifiers that must stay identical across
+// every locale (translating them would be wrong, not lazy).
+const FALLBACK_ALLOWED =
+  /\b(MoTA|PVTG|DBT|PFMS|APBS|IFSC|AISHE|U-DISE|NSFST|NOS|NFST|AI|OCR|SHA-256|QR|PDF|JSON|API|UID|State|ST|SC|OBC|EWS)\b|PS 26239|PS \d+|SIH \d{4}/;
 
 const readDir = (dir) => (fs.existsSync(dir) ? fs.readdirSync(dir) : []);
 

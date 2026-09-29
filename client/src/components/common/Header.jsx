@@ -86,6 +86,10 @@ const Header = ({ onOpenSearch }) => {
           <span className="hidden sm:inline text-slate-400">
             {t('nav.sihLine')}
           </span>
+          <span className="hidden sm:inline text-slate-500">|</span>
+          <span className="hidden sm:inline font-semibold text-amber-700">
+            {t('nav.psRef')}
+          </span>
         </div>
 
         {/* Accessibility & Language Toolbar */}

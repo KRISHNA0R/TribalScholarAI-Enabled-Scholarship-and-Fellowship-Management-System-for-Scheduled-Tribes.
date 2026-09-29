@@ -17,6 +17,7 @@ export default {
   'nav.helpdesk': 'Helpdesk',
   'nav.govtLine': 'GOVERNMENT OF INDIA • MINISTRY OF TRIBAL AFFAIRS',
   'nav.sihLine': 'Smart Education Theme',
+  'nav.psRef': 'SIH 2026 · PS 26239',
   'nav.highContrast': 'High Contrast',
   'nav.standardContrast': 'Standard Contrast',
   'nav.decreaseFont': 'Decrease font size',
