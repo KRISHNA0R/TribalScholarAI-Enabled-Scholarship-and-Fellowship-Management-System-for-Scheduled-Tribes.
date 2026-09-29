@@ -1,0 +1,62 @@
+export default {
+  'adash.welcomeName': 'Welcome, {name}',
+  'adash.stCandidateVerified': 'ST Candidate Verified',
+  'adash.tribe': 'Tribe:',
+  'adash.state': 'State:',
+  'adash.dbtAadhaarLinked': 'DBT Aadhaar Linked: Active',
+  'adash.applyNewScheme': 'Apply For New Scheme',
+
+  'adash.deficiencyTitle': 'Action Required: {count} Deficiency Pending Remediation',
+  'adash.deficiencySubtitle':
+    'Verification officers have requested document or field correction. Please resolve within statutory deadline.',
+  'adash.resolveNow': 'Resolve Now',
+
+  'adash.myApplications': 'My Scholarship Applications ({count})',
+  'adash.loadingApplications': 'Loading your applications...',
+  'adash.noApplicationsTitle': 'No applications created yet',
+  'adash.noApplicationsDesc':
+    'Explore the 5 official MoTA scholarship and fellowship schemes and start your application journey.',
+  'adash.browseSchemes': 'Browse Supported Schemes',
+
+  'adash.applicationNo': 'Application No: {number}',
+  'adash.defaultSchemeName': 'MoTA Scheme',
+  'adash.currentStage': 'Current Stage:',
+  'adash.aiConfidence': 'AI Verification Confidence:',
+  'adash.queue': 'Queue:',
+  'adash.sanctionOrder': 'Sanction Order:',
+  'adash.approvedAmount': 'Approved Amount: {amount} via Direct Benefit Transfer',
+  'adash.submittedLabel': 'Submitted:',
+  'adash.resumeDraft': 'Resume Draft',
+  'adash.viewFullDetails': 'View Full Details',
+
+  'adash.studentDemographics': 'Verified Student Demographics',
+  'adash.scheduledTribe': 'Scheduled Tribe:',
+  'adash.stCertificate': 'ST Certificate:',
+  'adash.annualIncome': 'Annual Family Income:',
+  'adash.educationLevel': 'Education Level:',
+  'adash.aadhaarDbtStatus': 'Aadhaar DBT Status:',
+  'adash.activeSeeded': 'Active Seeded (PFMS)',
+  'adash.editFullProfile': 'Edit Full Student Profile',
+
+  'adash.recentAlerts': 'Recent Alerts',
+  'adash.noNewNotifications': 'No new notifications.',
+  'adash.needHelp': 'Need Help or Clarification?',
+  'adash.raiseTicket': 'Raise a support ticket with state welfare cell',
+  'adash.helpdesk': 'Helpdesk',
+
+  'adash.badge.draft': 'Draft',
+  'adash.badge.underVerification': 'Under Verification',
+  'adash.badge.deficiencyAction': 'Deficiency Action Required',
+  'adash.badge.correctionSubmitted': 'Correction Submitted',
+  'adash.badge.sanctioned': 'Sanctioned',
+  'adash.badge.disbursedDbt': 'Disbursed via DBT',
+  'adash.badge.rejected': 'Rejected',
+
+  'adash.status.UNDER_VERIFICATION': 'Under Verification',
+  'adash.status.CORRECTION_SUBMITTED': 'Correction Submitted',
+  'adash.status.SHORTLISTED': 'Shortlisted',
+  'adash.status.SANCTIONED': 'Sanctioned',
+  'adash.status.SCRUTINY_PENDING': 'Scrutiny Pending',
+  'adash.status.SELECTION_REVIEW': 'Selection Review',
+  'adash.status.DISBURSEMENT_PENDING': 'Disbursement Pending',
+};

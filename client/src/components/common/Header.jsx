@@ -80,11 +80,11 @@ const Header = ({ onOpenSearch }) => {
         <div className="flex items-center gap-3">
           <span className="font-medium tracking-wide flex items-center gap-1.5">
             <span className="inline-block w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
-            GOVERNMENT OF INDIA &bull; MINISTRY OF TRIBAL AFFAIRS
+            {t('nav.govtLine')}
           </span>
           <span className="hidden sm:inline text-slate-500">|</span>
           <span className="hidden sm:inline text-slate-400">
-            SIH PS 26239: Smart Education Theme
+            {t('nav.sihLine')}
           </span>
         </div>
 
@@ -93,7 +93,7 @@ const Header = ({ onOpenSearch }) => {
           <div className="flex items-center bg-slate-800 rounded px-1 border border-slate-700">
             <button
               onClick={decreaseFontSize}
-              title="Decrease Font Size"
+              title={t('nav.decreaseFont')}
               className="px-1.5 py-0.5 hover:text-amber-400 font-semibold cursor-pointer"
             >
               A-
@@ -101,7 +101,7 @@ const Header = ({ onOpenSearch }) => {
             <span className="text-slate-600">|</span>
             <button
               onClick={resetFontSize}
-              title="Default Font Size"
+              title={t('nav.defaultFont')}
               className="px-1.5 py-0.5 hover:text-amber-400 font-semibold cursor-pointer"
             >
               A
@@ -109,7 +109,7 @@ const Header = ({ onOpenSearch }) => {
             <span className="text-slate-600">|</span>
             <button
               onClick={increaseFontSize}
-              title="Increase Font Size"
+              title={t('nav.increaseFont')}
               className="px-1.5 py-0.5 hover:text-amber-400 font-semibold cursor-pointer"
             >
               A+
@@ -124,18 +124,20 @@ const Header = ({ onOpenSearch }) => {
                 : 'border-slate-700 hover:border-slate-500 text-slate-300'
             }`}
           >
-            {highContrast ? 'Standard Contrast' : 'High Contrast'}
+            {highContrast ? t('nav.lightMode') : t('nav.darkMode')}
           </button>
 
           {/* Language Selector */}
           <select
             value={language}
             onChange={(e) => setLanguage(e.target.value)}
+            aria-label={t('common.language')}
             className="bg-slate-800 border border-slate-700 rounded px-2 py-0.5 text-xs text-slate-200 focus:outline-none focus:border-amber-400 cursor-pointer"
           >
             <option value="en">English (EN)</option>
             <option value="hi">हिंदी (HI)</option>
-            <option value="mr">मराठी (MR)</option>
+            <option value="bn">বাংলা (BN)</option>
+            <option value="sat">ᱥᱟᱱᱛᱟᱲᱤ (SAT)</option>
           </select>
 
           {/* Judge Demo Quick Link */}
@@ -144,7 +146,7 @@ const Header = ({ onOpenSearch }) => {
             className="bg-amber-600 hover:bg-amber-500 text-white font-semibold px-2.5 py-0.5 rounded flex items-center gap-1 shadow-xs transition-colors"
           >
             <Zap className="w-3.5 h-3.5" />
-            <span className="hidden md:inline">Judge Demo Hub</span>
+            <span className="hidden md:inline">{t('nav.demoHub')}</span>
           </Link>
         </div>
       </div>
@@ -153,9 +155,14 @@ const Header = ({ onOpenSearch }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4">
         {/* Brand identity */}
         <Link to="/" className="flex items-center gap-3 group">
-          <div className="w-11 h-11 rounded-lg bg-gradient-to-br from-gov-navy-900 to-gov-navy-700 flex items-center justify-center text-amber-400 shadow-md group-hover:scale-105 transition-transform border border-amber-500/30">
-            <GraduationCap className="w-6 h-6" />
-          </div>
+          <img
+            src="/logotri.png"
+            alt="TribalScholar AI logo"
+            width={44}
+            height={44}
+            loading="eager"
+            className="w-11 h-11 rounded-lg object-contain bg-white shadow-md border border-gov-navy-200 group-hover:scale-105 transition-transform"
+          />
           <div>
             <div className="flex items-center gap-2">
               <span className="font-extrabold text-xl tracking-tight text-gov-navy-950">
@@ -166,7 +173,7 @@ const Header = ({ onOpenSearch }) => {
               </span>
             </div>
             <p className="text-xs text-slate-600 font-medium">
-              Scholarship & Fellowship Management System &bull; MoTA
+              {t('nav.brandTagline')}
             </p>
           </div>
         </Link>
@@ -181,7 +188,7 @@ const Header = ({ onOpenSearch }) => {
                 : 'text-slate-700 hover:bg-slate-50 hover:text-gov-navy-900'
             }`}
           >
-            {t('home')}
+            {t('nav.home')}
           </Link>
 
           <Link
@@ -192,7 +199,7 @@ const Header = ({ onOpenSearch }) => {
                 : 'text-slate-700 hover:bg-slate-50 hover:text-gov-navy-900'
             }`}
           >
-            {t('schemes')}
+            {t('nav.schemes')}
           </Link>
 
           <Link
@@ -200,14 +207,14 @@ const Header = ({ onOpenSearch }) => {
             className="px-3 py-1.5 rounded-md text-sm font-medium text-amber-800 bg-amber-50 hover:bg-amber-100 border border-amber-200 flex items-center gap-1 transition-colors"
           >
             <SparklesIcon className="w-3.5 h-3.5 text-amber-600" />
-            {t('findScheme')}
+            {t('nav.findScheme')}
           </Link>
 
           <Link
             to="/privacy"
             className="px-3 py-1.5 rounded-md text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-gov-navy-900 transition-colors"
           >
-            Security & Privacy
+            {t('nav.privacy')}
           </Link>
         </nav>
 
@@ -217,10 +224,10 @@ const Header = ({ onOpenSearch }) => {
           <button
             onClick={onOpenSearch}
             className="hidden sm:flex items-center gap-2 bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-600 text-xs px-3 py-1.5 rounded-md transition-colors cursor-pointer"
-            title="Search schemes, applicants or applications (Ctrl+K)"
+            title={t('nav.search')}
           >
             <Search className="w-3.5 h-3.5 text-slate-500" />
-            <span>Search portal...</span>
+            <span>{t('nav.search')}</span>
             <kbd className="bg-white border border-slate-300 px-1.5 py-0.5 rounded text-[10px] text-slate-500 shadow-2xs font-mono">
               Ctrl+K
             </kbd>
@@ -235,14 +242,14 @@ const Header = ({ onOpenSearch }) => {
                   className="flex items-center gap-1.5 bg-gov-navy-50 hover:bg-gov-navy-100 text-gov-navy-900 text-xs font-semibold px-2.5 py-1.5 rounded-md border border-gov-navy-200 transition-colors"
                 >
                   <ShieldCheck className="w-3.5 h-3.5 text-gov-navy-700" />
-                  <span className="hidden sm:inline">Role:</span> {user.role.replace('_', ' ')}
+                  <span className="hidden sm:inline">{t('nav.role')}:</span> {user.role.replace('_', ' ')}
                   <ChevronDown className="w-3 h-3 text-slate-500" />
                 </button>
 
                 {roleDropdownOpen && (
                   <div className="absolute right-0 mt-1 w-56 bg-white border border-slate-200 rounded-lg shadow-xl py-1 z-50 text-xs animate-in fade-in">
                     <div className="px-3 py-1.5 border-b border-slate-100 font-bold text-slate-500 uppercase tracking-wider">
-                      Switch Demo Persona
+                      {t('nav.switchPersona')}
                     </div>
                     {[
                       { role: 'APPLICANT', label: 'Applicant Student' },
@@ -275,13 +282,13 @@ const Header = ({ onOpenSearch }) => {
                 className="bg-gov-navy-900 hover:bg-gov-navy-800 text-white text-xs font-semibold px-3 py-1.5 rounded-md shadow-xs flex items-center gap-1.5 transition-colors"
               >
                 <Layers className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline">Workspace</span>
+                <span className="hidden sm:inline">{t('nav.workspace')}</span>
               </Link>
 
               {/* Logout Button */}
               <button
                 onClick={logout}
-                title="Logout"
+                title={t('nav.logout')}
                 className="text-slate-600 hover:text-red-600 p-1.5 rounded-md hover:bg-slate-100 transition-colors"
               >
                 <LogOut className="w-4 h-4" />
@@ -293,13 +300,13 @@ const Header = ({ onOpenSearch }) => {
                 to="/login"
                 className="text-xs font-semibold text-gov-navy-900 hover:bg-slate-100 px-3 py-1.5 rounded-md transition-colors"
               >
-                {t('login')}
+                {t('nav.login')}
               </Link>
               <Link
                 to="/register"
                 className="bg-gov-navy-900 hover:bg-gov-navy-800 text-white text-xs font-semibold px-3.5 py-1.5 rounded-md shadow-xs transition-colors"
               >
-                {t('register')}
+                {t('nav.register')}
               </Link>
             </div>
           )}
@@ -322,28 +329,28 @@ const Header = ({ onOpenSearch }) => {
             onClick={() => setMobileMenuOpen(false)}
             className="block py-2 text-sm font-medium text-slate-800 border-b border-slate-100"
           >
-            {t('home')}
+            {t('nav.home')}
           </Link>
           <Link
             to="/schemes"
             onClick={() => setMobileMenuOpen(false)}
             className="block py-2 text-sm font-medium text-slate-800 border-b border-slate-100"
           >
-            {t('schemes')}
+            {t('nav.schemes')}
           </Link>
           <Link
             to="/schemes?finder=true"
             onClick={() => setMobileMenuOpen(false)}
             className="block py-2 text-sm font-medium text-amber-800 border-b border-slate-100"
           >
-            {t('findScheme')}
+            {t('nav.findScheme')}
           </Link>
           <Link
             to="/demo"
             onClick={() => setMobileMenuOpen(false)}
             className="block py-2 text-sm font-bold text-amber-700"
           >
-            Judge Demo Presentation Hub
+            {t('nav.demoHub')}
           </Link>
         </div>
       )}

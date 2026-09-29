@@ -1,90 +1,84 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Shield, ExternalLink, Award, FileText, CheckCircle, HelpCircle } from 'lucide-react';
+import { ExternalLink, CheckCircle } from 'lucide-react';
+import { useAccessibility } from '../../context/AccessibilityContext.jsx';
 
 const Footer = () => {
+  const { t } = useAccessibility();
+
   return (
-    <footer className="bg-slate-900 text-slate-300 text-sm border-t border-slate-800">
+    <footer className="bg-gov-navy-950 text-slate-300 text-sm border-t-4 border-gov-navy-800">
+      {/* Subtle tribal divider strip */}
+      <div className="tribal-divider" aria-hidden="true"></div>
+
       {/* Upper disclaimer strip */}
       <div className="bg-amber-950/40 border-b border-amber-900/40 py-2.5 px-4 text-center text-xs text-amber-300 font-medium">
-        <span>
-          <strong>DEMO NOTICE:</strong> Prototype engineered for Smart India Hackathon (SIH Problem Statement 26239) — Ministry of Tribal Affairs. All beneficiary names, bank details, and Aadhaar numbers are purely synthetic demo data.
-        </span>
+        <span>{t('footer.demoNotice')}</span>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Column 1: MoTA Portal Info */}
+          {/* Column 1: Portal Info + Logo */}
           <div className="md:col-span-1 space-y-3">
-            <div className="flex items-center gap-2 text-white font-extrabold text-lg tracking-tight">
+            <div className="flex items-center gap-2.5 text-white font-extrabold text-lg tracking-tight">
+              <img
+                src="/logotri.png"
+                alt="TribalScholar AI logo"
+                width={36}
+                height={36}
+                loading="lazy"
+                className="w-9 h-9 rounded-lg object-contain bg-white p-0.5"
+              />
               <span>TribalScholar AI</span>
             </div>
             <p className="text-xs text-slate-400 leading-relaxed">
-              AI-Enabled, transparent, and auditable scholarship and fellowship lifecycle management system designed for Scheduled Tribe students across India.
+              {t('footer.brandDesc')}
             </p>
             <div className="text-xs text-slate-500 pt-2 border-t border-slate-800">
-              Ministry of Tribal Affairs, Shastri Bhawan, New Delhi - 110001
+              {t('footer.ministryAddr')}
             </div>
           </div>
 
           {/* Column 2: Supported Schemes */}
           <div>
             <h4 className="text-white font-semibold text-xs uppercase tracking-wider mb-3">
-              Official ST Schemes
+              {t('footer.officialSchemes')}
             </h4>
             <ul className="space-y-2 text-xs text-slate-400">
-              <li>
-                <Link to="/schemes" className="hover:text-amber-400 transition-colors">
-                  Pre-Matric Scholarship (Class 9 & 10)
-                </Link>
-              </li>
-              <li>
-                <Link to="/schemes" className="hover:text-amber-400 transition-colors">
-                  Post-Matric Scholarship (PMS-ST)
-                </Link>
-              </li>
-              <li>
-                <Link to="/schemes" className="hover:text-amber-400 transition-colors">
-                  Top Class Education in Premier Institutes
-                </Link>
-              </li>
-              <li>
-                <Link to="/schemes" className="hover:text-amber-400 transition-colors">
-                  National Fellowship for ST (NFST)
-                </Link>
-              </li>
-              <li>
-                <Link to="/schemes" className="hover:text-amber-400 transition-colors">
-                  National Overseas Scholarship (NOS)
-                </Link>
-              </li>
+              {[1, 2, 3, 4, 5].map((n) => (
+                <li key={n}>
+                  <Link to="/schemes" className="hover:text-amber-400 transition-colors">
+                    {t(`footer.scheme${n}`)}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
           {/* Column 3: Quick Navigation */}
           <div>
             <h4 className="text-white font-semibold text-xs uppercase tracking-wider mb-3">
-              Portals & Services
+              {t('footer.portals')}
             </h4>
             <ul className="space-y-2 text-xs text-slate-400">
               <li>
                 <Link to="/schemes?finder=true" className="hover:text-amber-400 transition-colors">
-                  Find My Scholarship (AI Assist)
+                  {t('footer.findScholarship')}
                 </Link>
               </li>
               <li>
                 <Link to="/demo" className="hover:text-amber-400 transition-colors font-medium text-amber-300">
-                  SIH Evaluator Demo Suite
+                  {t('footer.sihSuite')}
                 </Link>
               </li>
               <li>
                 <Link to="/applicant/help" className="hover:text-amber-400 transition-colors">
-                  Grievance & Helpdesk
+                  {t('footer.grievance')}
                 </Link>
               </li>
               <li>
                 <Link to="/privacy" className="hover:text-amber-400 transition-colors">
-                  Privacy, Encryption & Data Policy
+                  {t('footer.privacyPolicy')}
                 </Link>
               </li>
             </ul>
@@ -93,7 +87,7 @@ const Footer = () => {
           {/* Column 4: Official References */}
           <div>
             <h4 className="text-white font-semibold text-xs uppercase tracking-wider mb-3">
-              Official References
+              {t('footer.references')}
             </h4>
             <ul className="space-y-2.5 text-xs text-slate-400">
               <li>
@@ -120,7 +114,7 @@ const Footer = () => {
               </li>
               <li>
                 <span className="inline-block bg-slate-800 text-slate-300 px-2 py-1 rounded text-[11px]">
-                  Direct Benefit Transfer (PFMS / APBS Compliant)
+                  {t('footer.dbtBadge')}
                 </span>
               </li>
             </ul>
@@ -130,15 +124,15 @@ const Footer = () => {
         {/* Bottom copyright & credits */}
         <div className="mt-8 pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
           <p>
-            &copy; {new Date().getFullYear()} TribalScholar AI &bull; Smart India Hackathon Prototype (SIH PS 26239). All rights reserved.
+            &copy; {new Date().getFullYear()} TribalScholar AI &bull; {t('footer.rights')}
           </p>
           <div className="flex items-center gap-4 text-xs">
             <span className="flex items-center gap-1 text-emerald-400">
               <CheckCircle className="w-3.5 h-3.5" />
-              WCAG 2.1 AA Accessible
+              {t('footer.wcag')}
             </span>
             <span>&bull;</span>
-            <span className="text-slate-400">National Informatics Centre Standards</span>
+            <span className="text-slate-400">{t('footer.nicStandards')}</span>
           </div>
         </div>
       </div>

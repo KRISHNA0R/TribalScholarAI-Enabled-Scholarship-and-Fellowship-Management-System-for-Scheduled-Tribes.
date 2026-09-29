@@ -1,0 +1,62 @@
+export default {
+  'adash.welcomeName': 'স্বাগতম, {name}',
+  'adash.stCandidateVerified': 'অনুসূচিত জনজাতি প্রার্থী যাচাইকৃত',
+  'adash.tribe': 'উপজাতি:',
+  'adash.state': 'রাজ্য:',
+  'adash.dbtAadhaarLinked': 'DBT আধার লিংকযুক্ত: সক্রিয়',
+  'adash.applyNewScheme': 'নতুন প্রকল্পের জন্য আবেদন করুন',
+
+  'adash.deficiencyTitle': 'কার্যক্রম প্রয়োজন: {count}টি ঘাটতির সমাধান বাকি',
+  'adash.deficiencySubtitle':
+    'যাচাইকারী কর্মকর্তারা নথি বা ক্ষেত্রে সংশোধনের অনুরোধ করেছেন। অনুগ্রহ করে আইনগত সময়সীমার মধ্যে সমাধান করুন।',
+  'adash.resolveNow': 'এখনই সমাধান করুন',
+
+  'adash.myApplications': 'আমার ছাত্রবৃত্তি আবেদন ({count})',
+  'adash.loadingApplications': 'আপনার আবেদনগুলি লোড হচ্ছে...',
+  'adash.noApplicationsTitle': 'এখনো কোনো আবেদন তৈরি হয়নি',
+  'adash.noApplicationsDesc':
+    'MoTA-র 5টি সরকারি ছাত্রবৃত্তি ও ফেলোশিপ প্রকল্প দেখুন এবং আপনার আবেদন শুরু করুন।',
+  'adash.browseSchemes': 'উপলব্ধ প্রকল্প দেখুন',
+
+  'adash.applicationNo': 'আবেদন নম্বর: {number}',
+  'adash.defaultSchemeName': 'MoTA প্রকল্প',
+  'adash.currentStage': 'বর্তমান ধাপ:',
+  'adash.aiConfidence': 'AI যাচাই আস্থাস্তর:',
+  'adash.queue': 'কিউ:',
+  'adash.sanctionOrder': 'অনুমোদন আদেশ:',
+  'adash.approvedAmount': 'অনুমোদিত পরিমাণ: {amount} সরাসরি সুবিধা হস্তান্তরের মাধ্যমে',
+  'adash.submittedLabel': 'জমাকৃত:',
+  'adash.resumeDraft': 'খসড়া চালিয়ে যান',
+  'adash.viewFullDetails': 'সম্পূর্ণ বিবরণ দেখুন',
+
+  'adash.studentDemographics': 'যাচাইকৃত ছাত্র জনমিতি',
+  'adash.scheduledTribe': 'অনুসূচিত জনজাতি:',
+  'adash.stCertificate': 'ST সনদ:',
+  'adash.annualIncome': 'বার্ষিক পারিবারিক আয়:',
+  'adash.educationLevel': 'শিক্ষার স্তর:',
+  'adash.aadhaarDbtStatus': 'আধার DBT অবস্থা:',
+  'adash.activeSeeded': 'সক্রিয় সিডেড (PFMS)',
+  'adash.editFullProfile': 'সম্পূর্ণ ছাত্র প্রোফাইল সম্পাদনা করুন',
+
+  'adash.recentAlerts': 'সাম্প্রতিক সতর্কতা',
+  'adash.noNewNotifications': 'কোনো নতুন বিজ্ঞপ্তি নেই।',
+  'adash.needHelp': 'সাহায্য বা ব্যাখ্যা দরকার?',
+  'adash.raiseTicket': 'রাজ্য কল্যাণ সেলের সঙ্গে সহায়তা টিকিট তুলুন',
+  'adash.helpdesk': 'হেল্পডেস্ক',
+
+  'adash.badge.draft': 'খসড়া',
+  'adash.badge.underVerification': 'যাচাই অধীন',
+  'adash.badge.deficiencyAction': 'ঘাটতির সমাধান প্রয়োজন',
+  'adash.badge.correctionSubmitted': 'সংশোধন জমা হয়েছে',
+  'adash.badge.sanctioned': 'অনুমোদিত',
+  'adash.badge.disbursedDbt': 'DBT-র মাধ্যমে প্রদত্ত',
+  'adash.badge.rejected': 'প্রত্যাখ্যাত',
+
+  'adash.status.UNDER_VERIFICATION': 'যাচাই অধীন',
+  'adash.status.CORRECTION_SUBMITTED': 'সংশোধন জমা হয়েছে',
+  'adash.status.SHORTLISTED': 'শর্টলিস্টেড',
+  'adash.status.SANCTIONED': 'অনুমোদিত',
+  'adash.status.SCRUTINY_PENDING': 'পরীক্ষা বিচারে বাকি',
+  'adash.status.SELECTION_REVIEW': 'নির্বাচন পর্যালোচনা',
+  'adash.status.DISBURSEMENT_PENDING': 'অর্থপ্রদান বিচারে বাকি',
+};

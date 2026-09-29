@@ -1,257 +1,270 @@
-# 🎓 TribalScholar AI
+<div align="center">
+
+# TribalScholar AI
 
 ### AI-Enabled Scholarship & Fellowship Management System for Scheduled Tribes
+**Ministry of Tribal Affairs, Government of India**
 
-**SIH 2026 Project • Owner / Developer: Krishna R**
+[![CI](https://github.com/KRISHNA0R/TribalScholarAI-Enabled-Scholarship-and-Fellowship-Management-System-for-Scheduled-Tribes/actions/workflows/ci.yml/badge.svg)](https://github.com/KRISHNA0R/TribalScholarAI-Enabled-Scholarship-and-Fellowship-Management-System-for-Scheduled-Tribes/actions/workflows/ci.yml)
+[![Node](https://img.shields.io/badge/Node-20-3FA512?logo=node.js&logoColor=white)](https://nodejs.org)
+[![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=black)](https://react.dev)
+[![Vite](https://img.shields.io/badge/Vite-5-646CFF?logo=vite&logoColor=white)](https://vitejs.dev)
+[![Express](https://img.shields.io/badge/Express-4-000000?logo=express&logoColor=white)](https://expressjs.com)
+[![MongoDB](https://img.shields.io/badge/MongoDB-8-47A248?logo=mongodb&logoColor=white)](https://mongodb.com)
+[![Tailwind](https://img.shields.io/badge/TailwindCSS-3-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+[![Vercel](https://img.shields.io/badge/Deploy-Vercel-000000?logo=vercel&logoColor=white)](https://vercel.com)
+[![License](https://img.shields.io/badge/License-MIT-16A34A.svg)](LICENSE)
 
----
+**Languages:** `English` · `हिन्दी` · `বাংলা` · `ᱥᱟᱱᱛᱟᱲᱤ (Santali / Ol Chiki)`
 
-## 📌 Project Overview
-
-**TribalScholar AI** is an end-to-end, AI-assisted digital platform for managing the scholarship and fellowship lifecycle of Scheduled Tribe (ST) students in India. It is a full-stack application: a React (Vite) single-page frontend, a Node.js/Express REST API, and a MongoDB database.
-
-The system addresses common problems in traditional scholarship administration — document fraud, duplicate claims, inconsistent scrutiny, delays, and non-transparent disbursals — by combining document intelligence (OCR extraction, SHA-256 file hashing, anomaly flags), a configurable rule engine, composite merit ranking, and simulated Aadhaar Payment Bridge (APBS) Direct Benefit Transfer reconciliation in one portal.
-
-**Important:** all AI/OCR/DBT/SMS behaviour in this codebase operates in **demo mode** with synthetic data. OCR extraction, eligibility scoring, anomaly detection, UTR generation, and outbound notifications are deterministic simulations implemented in `server/services/ai/` and `server/services/notificationService.js`. Human officers make every final approval decision.
-
----
-
-## 🌟 Major Features
-
-### 1. 10-Step Smart Application Wizard
-- Guided, autosaving stepper capturing personal, socio-demographic, academic, and DBT bank account details.
-- Simulated document upload with OCR preview that populates fields with confidence scores.
-- Aadhaar e-KYC & domicile fields with masked identity display (`XXXX-XXXX-8921` style).
-
-### 2. Officer Scrutiny & AI-Assisted Verification
-- Dual queues: *AI Fast-Track (high confidence)* vs. *Manual Scrutiny Required (discrepancies/anomalies)*.
-- Side-by-side review of document scan, extracted values, and automated discrepancy flags.
-- Levenshtein-based field similarity scoring and duplicate-document detection via SHA-256 hashes.
-- Officers raise targeted deficiency remediation notices to applicants.
-
-### 3. Eligibility & Document Verification
-- Rule-based eligibility evaluation against scheme parameters (income ceilings, education level, minimum percentage).
-- Document classification and validation per scheme's required document list (ST certificate, income certificate, bonafide, marksheets, etc.).
-
-### 4. Merit / Selection Workflow
-- Four-factor composite merit score (out of 100): academic performance, research/premier-institute admission, scheme-specific fit, and special vulnerability (PVTG).
-- Committee scoring, voting, quota-aware ranking, and sanction order generation.
-
-### 5. Deficiency Management
-- Officers raise deficiencies; applicants resolve them from their dashboard with re-uploaded documents.
-- Status lifecycle tracked on both sides with notifications.
-
-### 6. Direct Benefit Transfer (Demo)
-- Finance officer dashboard with batch disbursement runs.
-- Synthetic RBI-style UTR generation (`RBI2026…`) on disbursement.
-- Credit confirmation creates beneficiary notifications (simulated SMS + in-app).
-
-### 7. Dynamic Scheme Rule Builder & Audit Trail
-- No-code rule editor for scheme parameters (operators: `==`, `!=`, `>`, `<`, `>=`, `<=`, `IN`, `NOT IN`).
-- Immutable-style audit log of sensitive state transitions with officer IDs and timestamps.
-
-### 8. Application Tracking & Grievances
-- Applicants track application status through the lifecycle.
-- Grievance/helpdesk submission and tracking.
-- In-app notification center.
-
-### 9. Dashboard & Analytics
-- Applicant dashboard (applications, deficiencies, documents, notifications).
-- Admin dashboard with operational analytics across schemes, applications, and disbursals.
-- Officer, selection committee, and finance dashboards.
-
-### 10. Accessibility & Localization
-- WCAG-oriented controls: font scaling (`A-`, `A`, `A+`), high-contrast/dark mode, reduced motion.
-- Trilingual UI: English, Hindi, Marathi (`client/src/utils/translations.js`).
-- Command palette (Ctrl+K) quick navigation.
+</div>
 
 ---
 
-## 👤 Applicant Workflow
+## 📌 What It Is
 
-1. **Register / Login** → applicant account with profile.
-2. **Browse schemes** in the catalog (`/schemes`), optionally using the AI scheme finder.
-3. **Apply** through the 10-step wizard (`/applicant/application/new`) with draft autosave.
-4. **Upload documents** in the document manager; OCR extraction preview populates fields.
-5. **Submit** → application enters officer scrutiny.
-6. **Track** status on the dashboard (`/applicant/dashboard`) and application detail page.
-7. **Resolve deficiencies** if officers raise any (`/applicant/deficiencies`).
-8. **Receive notifications** on approval, selection, and disbursement.
-9. **Raise grievances** if needed (`/applicant/help`).
+TribalScholar AI is a full-stack **scholarship lifecycle management platform** for Scheduled Tribe
+students — from scheme discovery and application, through AI-assisted document verification and
+officer scrutiny, to committee selection and Direct Benefit Transfer (DBT) disbursement.
 
-## 🛡️ Officer / Admin Workflow
-
-| Role | Work Area |
-|---|---|
-| `VERIFICATION_OFFICER` | Priority queues, side-by-side OCR scrutiny, verification decisions |
-| `SCRUTINY_OFFICER` | Anomaly audits, deficiency orders |
-| `SELECTION_COMMITTEE` | Candidate scoring, quotas, sanction orders (`/selection`) |
-| `FINANCE_OFFICER` | DBT batch disbursals, UTR generation (`/finance`) |
-| `ADMIN` / `SUPER_ADMIN` | Operations analytics, scheme rule engine, audit trail (`/admin/*`) |
+It is built to mirror the real Ministry of Tribal Affairs workflow (Pre-Matric, Post-Matric, Top Class
+Education, NFST Fellowship, National Overseas Scholarship) with an audit-grade, human-in-the-loop
+verification model.
 
 ---
 
-## 🗄️ Repository Structure
+## 🧰 Tech Stack
 
-```
-TribalScholar AI/
-├── client/                     # React 18 + Vite + Tailwind frontend
-│   ├── src/
-│   │   ├── components/common/  # Header, Footer, ProtectedRoute, CommandPalette
-│   │   ├── context/            # AuthContext, AccessibilityContext, NotificationContext
-│   │   ├── pages/              # 22 application pages
-│   │   ├── services/api.js     # Axios client with JWT interceptor
-│   │   ├── utils/              # Formatters & trilingual dictionaries
-│   │   ├── App.jsx             # Route registry
-│   │   └── main.jsx            # React root entrypoint
-│   ├── index.html              # HTML shell, meta tags, favicon
-│   ├── tailwind.config.js
-│   ├── vite.config.js          # Dev server + /api proxy to :5000
-│   └── vercel.json
-│
-├── server/                     # Node.js + Express API
-│   ├── config/db.js            # Mongoose connection
-│   ├── controllers/            # 10 controller modules
-│   ├── middleware/             # JWT auth, role authorization, errors, uploads
-│   ├── models/                 # 14 Mongoose schemas
-│   ├── routes/                 # 12 REST route modules
-│   ├── seed/seedRunner.js      # Demo data seeder
-│   ├── services/               # Audit & notification services
-│   │   └── ai/                 # OCR, eligibility, anomaly, classifier, deficiency
-│   └── server.js               # Express bootstrap, /api/health
-│
-├── .env.example                # Environment template
-├── package.json                # Root orchestration scripts
-└── README.md
-```
+### Frontend — `client/`
 
----
-
-## ⚙️ Technology Stack
-
-**Frontend:** React 18, Vite 5, React Router 6, Tailwind CSS 3, Axios, Recharts, Lucide icons, clsx/tailwind-merge
-
-**Backend:** Node.js, Express 4, Mongoose 8 (MongoDB), JSONwebtoken, bcryptjs, Helmet, CORS, Morgan, express-validator, express-rate-limit, Multer
-
-**Database:** MongoDB (local `mongodb://127.0.0.1:27017/...` or Atlas)
-
-**Tooling:** npm, concurrently, nodemon
-
----
-
-## 🚀 Local Setup
-
-### Prerequisites
-- Node.js v18+ (npm included)
-- MongoDB running on `127.0.0.1:27017`, **or** a MongoDB Atlas connection string
-
-### 1. Install dependencies
-```bash
-npm run install:all
-```
-(installs root, `server/`, and `client/` in one go)
-
-### 2. Configure environment variables
-Create `server/.env` from the template:
-```bash
-copy .env.example server\.env     # Windows
-# or: cp .env.example server/.env # macOS/Linux
-```
-Then edit `server/.env`:
-```env
-PORT=5000
-NODE_ENV=development
-MONGO_URI=mongodb://127.0.0.1:27017/tribal_scholar_ai
-JWT_SECRET=<generate-a-long-random-secret>
-AI_MODE=demo
-OCR_MODE=demo
-CLIENT_URL=http://localhost:5173
-```
-
-| Variable | Required | Notes |
+| Layer | Technology | Purpose |
 |---|---|---|
-| `PORT` | Yes | Backend port (default `5000`) |
-| `MONGO_URI` | Yes | MongoDB connection string |
-| `JWT_SECRET` | Yes (production) | **Set your own random secret.** An insecure fallback exists in code for local demo only. |
-| `AI_MODE` / `OCR_MODE` | No | Leave as `demo` — no external AI/OCR API keys are used by this codebase |
-| `CLIENT_URL` | No | CORS origin for the frontend |
-| `VITE_API_URL` | No | Frontend only; unset means same-origin `/api` (Vite dev proxy) |
+| UI runtime | **React 18** + **React Router 6** | Component model & SPA routing |
+| Build | **Vite 5** | Instant dev server, optimised production bundling |
+| Styling | **Tailwind CSS 3** + design tokens | Forest-green / saffron tribal design system |
+| State | React Context (`AccessibilityContext`) | Language, contrast mode, font scale |
+| HTTP | **Axios** | Centralised client with JWT interceptor |
+| Charts | **Recharts 2** | Analytics & disbursement dashboards |
+| Icons | **Lucide React** | Consistent, accessible iconography |
+| i18n | Custom `import.meta.glob` loader | 4 languages, per-namespace lazy discovery |
+| Fonts | Plus Jakarta Sans + **Noto Sans Ol Chiki / Devanagari / Bengali** | Latin + Indic + tribal script coverage |
 
-> No third-party API keys, OAuth secrets, or paid service credentials are required to run this project in demo mode.
+### Backend — `server/`
 
-### 3. Seed demo data (recommended)
+| Layer | Technology | Purpose |
+|---|---|---|
+| Runtime | **Node.js 18+**, ES Modules | Single modern module system |
+| API | **Express 4** | 12 RESTful route modules |
+| Database | **MongoDB 8** via **Mongoose 8** | 14 indexed schemas |
+| Auth | **JWT** (`jsonwebtoken`) + **bcryptjs** | Stateless role-based sessions |
+| Security | **Helmet**, **CORS**, **express-rate-limit**, **express-validator** | Hardened perimeter |
+| Uploads | **Multer** + magic-byte verification | Genuine file-signature validation |
+| Logging | **Morgan** (dev) / structured `AuditLog` collection | Immutable trail |
+| Runtime target | Node process **or** Vercel serverless function | Deploy-anywhere |
+
+### Platform
+
+| Concern | Solution |
+|---|---|
+| CI/CD | **GitHub Actions** — syntax check, i18n parity, integrity tests, client build |
+| Hosting | **Vercel** — `vercel.json` with static SPA + `/api/*` serverless function |
+| Database (cloud) | **MongoDB Atlas** (SRV) |
+| Verification scripts | `npm run verify` — 14 integrity tests + 4-language key parity gate |
+
+---
+
+## 🏗️ Architecture
+
+```
+TribalScholarAI/
+├── api/
+│   ├── index.js            # Vercel serverless entry (no app.listen)
+│   └── [...path].js        # catch-all so /api/* reaches Express unchanged
+├── client/
+│   ├── public/             # logotri.png (brand), banner.jpg (hero)
+│   └── src/
+│       ├── components/     # Header, Footer, shared UI
+│       ├── context/        # AccessibilityContext (lang, contrast, font)
+│       ├── i18n/
+│       │   ├── index.js    # LANGUAGES + makeTranslator + glob loader
+│       │   └── locales/    # en · hi · bn · sat  (13 namespaces, 664 keys)
+│       ├── pages/          # Landing, Login, Register, Applicant Dashboard,
+│       │                   # 10-step Wizard, Application Detail, Document Vault,
+│       │                   # Scheme Catalog, Rule Builder, Analytics, Demo Hub…
+│       └── services/api.js # Axios instance + JWT interceptor
+├── server/
+│   ├── app.js              # Express app factory (shared by both entrypoints)
+│   ├── server.js           # Local / VPS entrypoint
+│   ├── config/             # db.js, ensureDB.js, paths.js
+│   ├── controllers/        # Business logic
+│   ├── middleware/         # auth, upload, role, errors
+│   ├── models/             # 14 Mongoose schemas
+│   ├── routes/             # 12 route modules
+│   ├── seed/               # Demo data + 5 official MoTA schemes
+│   └── services/
+│       ├── fileIntegrityService.js   # magic bytes · SHA-256 · structure parse
+│       └── ai/                       # OCR · classification · anomaly detection
+├── scripts/                # verify-i18n.mjs · verify-file-integrity.mjs
+├── vercel.json
+└── .github/workflows/ci.yml
+```
+
+**Request flow:** `Browser → Vercel Edge → /api/* serverless fn → Express → Mongoose → MongoDB Atlas`
+and `Browser → client/dist static assets` (same origin, no CORS in production).
+
+---
+
+## 🔐 Real Document Verification
+
+Document "authentication" is implemented as a **real integrity layer**, not a UI claim.
+`server/services/fileIntegrityService.js` inspects actual file bytes:
+
+| Check | What it proves | On failure |
+|---|---|---|
+| `FILE_NON_EMPTY` | Bytes were received | **Reject 400** |
+| `SIGNATURE_MATCH` | Magic bytes match the claimed extension/MIME (catches renamed `.txt`/`.exe`/`.svg`) | **Reject 400** |
+| `STRUCTURE_PARSE` | PNG IHDR / JPEG SOF / PDF header + page count parse — catches truncation & corruption | **Reject 400** |
+| `READABILITY` | Smallest side ≥ 200px — OCR quality advisory | Flag for manual review |
+| `SHA-256` | Hash computed over **file bytes** (not the filename) → duplicate & re-use detection | `DUPLICATE_HASH` anomaly flag |
+| `CROSS_CHECK` | Certificate number, issuing authority, extracted income vs. the applicant's own profile | `*_MISMATCH` AI flags |
+
+Rejected files are deleted, **no database record is created**, and a `DOCUMENT_REJECTED` event is
+written to the immutable audit log.
+
+> **Honest boundary.** These checks are genuine file-level forensics. They do **not** attest that a
+> Ministry/State authority actually issued the document — that requires DigiLocker or issuer-side
+> API credentials, which this deployment does not hold. Issuer attestation therefore remains an
+> explicit human-officer step in the scrutiny module, and the UI says so.
+
+Run the regression suite any time:
+
+```bash
+npm run verify:integrity
+```
+
+---
+
+## 🌍 Multilingual by Design
+
+A centralised i18n system, not scattered string swaps.
+
+- **4 languages**, 13 namespaces, **664 keys each** — verified at full parity in CI.
+- Auto-discovery via `import.meta.glob('./locales/*/*.js')` — adding a language is dropping in a folder.
+- English fallback per key, so a missing translation degrades gracefully instead of blanking the UI.
+- Choice persists in `localStorage` (`tribalscholar_lang`) across refresh and login, and drives
+  `<html lang>` for correct screen-reader pronunciation.
+- **Santali (`sat`)** renders in the native **Ol Chiki** script, bundled via Noto Sans Ol Chiki.
+
+```bash
+npm run verify:i18n
+```
+
+---
+
+## 🚀 Quick Start (Local)
+
+```bash
+git clone https://github.com/KRISHNA0R/TribalScholarAI-Enabled-Scholarship-and-Fellowship-Management-System-for-Scheduled-Tribes..git
+cd TribalScholarAI
+
+npm run install:all          # root + server + client
+cp .env.example server/.env  # then edit MONGO_URI and JWT_SECRET
+
+# terminal 1 — MongoDB must be running first
+npm run server               # http://localhost:5000
+
+# terminal 2
+npm run client               # http://localhost:5173
+```
+
+Seed demo data (5 official MoTA schemes, 6 role accounts, applications, audit history):
+
 ```bash
 npm run seed
 ```
-Creates demo users (applicants, officers, admin), 5 national ST schemes, applications, documents, deficiencies, selections, and disbursals.
 
-**Demo accounts** (created by the seeder):
+### Demo accounts — password `Demo@123`
 
-| Persona | Email | Password |
-|---|---|---|
-| Applicant Student | `applicant@demo.com` | `Demo@123` |
-| Verification Officer | `verifier@demo.com` | `Demo@123` |
-| Scrutiny Officer | `scrutiny@demo.com` | `Demo@123` |
-| Selection Committee | `committee@demo.com` | `Demo@123` |
-| Finance / DBT Officer | `finance@demo.com` | `Demo@123` |
-| System Administrator | `admin@demo.com` | `Demo@123` |
+| Role | Email |
+|---|---|
+| Applicant | `applicant@demo.com` |
+| Verification Officer | `verifier@demo.com` |
+| Scrutiny Committee | `scrutiny@demo.com` |
+| Selection Committee | `committee@demo.com` |
+| Finance / DBT | `finance@demo.com` |
+| Administrator | `admin@demo.com` |
 
-There is also a one-click persona switcher at **`/demo`** (Judge Demo Hub) for evaluation walkthroughs.
+---
 
-### 4. Run both servers
+## ☁️ Deploy to Vercel
+
+The repository is **deployment-ready** — `vercel.json` is committed.
+
+1. **Push** the repo (done) and import it at [vercel.com/new](https://vercel.com/new).
+2. Vercel auto-detects: `outputDirectory = client/dist`, function at `api/index.js`.
+3. Add **Environment Variables** (Settings → Environment Variables):
+
+   | Key | Value |
+   |---|---|
+   | `MONGO_URI` | `mongodb+srv://USER:PASS@cluster0.xxxxx.mongodb.net/tribal_scholar_ai` |
+   | `JWT_SECRET` | 96+ random hex characters |
+   | `CLIENT_URL` | `https://<your-app>.vercel.app` |
+   | `NODE_ENV` | `production` |
+   | `AI_MODE` / `OCR_MODE` | `demo` |
+
+4. In **MongoDB Atlas** → *Network Access*, allow Vercel's outgoing IPs (`0.0.0.0/0` for a public demo).
+5. **Deploy.** Run `npm run seed` once locally against the Atlas URI to load schemes and demo data.
+
+Verify with `https://<your-app>.vercel.app/api/health`.
+
+> **Serverless note:** uploaded file bytes land in an ephemeral `/tmp` (the Vercel filesystem is
+> read-only). All document *records*, hashes, verification results and audit entries persist in
+> MongoDB, which is what the platform reads. For durable binary storage, swap Multer's disk storage
+> for S3/Vercel Blob — the integrity service is storage-agnostic because it hashes the byte stream.
+
+---
+
+## ✅ Quality Gates
+
 ```bash
-npm run dev
+npm run verify     # integrity tests (14) + i18n parity (664 keys × 4 languages)
+npm run build      # production client bundle
 ```
 
-| Service | URL |
-|---|---|
-| Frontend | http://localhost:5173 |
-| Backend API | http://localhost:5000 |
-| Health check | http://localhost:5000/api/health |
+CI runs both on every push and publishes `client/dist` as a build artifact.
 
 ---
 
-## 🛠️ Development Commands
+## 🎨 Design System
 
-| Command | Description |
-|---|---|
-| `npm run install:all` | Install root + server + client dependencies |
-| `npm run dev` | Start backend and frontend concurrently |
-| `npm run server` | Start backend only (`node server/server.js`) |
-| `npm run client` | Start frontend only (Vite dev server) |
-| `npm run seed` | Seed the database with demo data |
-
-Server-side (inside `server/`): `npm run dev` (nodemon), `npm start` (production).
-
-## 📦 Production Build
-
-```bash
-# 1. Build the frontend
-cd client
-npm run build          # outputs client/dist
-
-# 2. Start the API in production mode
-cd ../server
-set NODE_ENV=production   # Windows
-export NODE_ENV=production # macOS/Linux
-npm start
-```
-
-Serve `client/dist` from any static host or reverse proxy, and proxy `/api` + `/uploads` to the API server (see `client/vercel.json` for a serverless routing example). Set `VITE_API_URL` at build time if the API is on a different origin.
+Deep forest-green primary, saffron accent, cream surfaces — a tribal identity that stays
+professional rather than ornamental. Subtle motif work (`.tribal-divider`, `.tribal-texture`,
+`.tribal-corners`), 40px minimum touch targets, visible `focus-visible` outlines, and a real
+**Dark / Light mode** where dark mode forces pure-white text for contrast.
 
 ---
 
-## 🛡️ Security & Privacy Notes
+## 📜 Data Provenance
 
-- JWT-based authentication with role-based route authorization.
-- SHA-256 file checksums for tamper/duplicate document detection.
-- Masked Aadhaar display; synthetic demo data only (DPDP-aligned field design).
-- Helmet security headers and CORS restrictions.
+Scheme rules, income ceilings and benefit amounts are aligned to official MoTA publications:
+
+- <https://tribal.nic.in/Scholarship.aspx>
+- <https://tribal.nic.in/ScholarshiP.aspx>
+- <https://dbttribal.gov.in/AllScheme.aspx>
+- [MoTA Post-Matric ST Scholarship Guidelines (PDF)](https://tribal.nic.in/downloads/guidelines/post-matric/EDUPostMatricScholarshipPMSforSTstudents230513.pdf)
+
+Each scheme record stores its own `officialUrl`, `officialSource` and `guidelinesVerifiedOn`, and the
+UI surfaces a direct "Official Source" link. Figures such as the ₹2,50,000 income ceiling for Pre/Post-Matric
+match the published guidelines.
 
 ---
 
-## ⚖️ License & Notice
+## 👤 Author
 
-Developed as an **SIH 2026** project by **Krishna R**.
+**Krishna R** — <vloggermr797@gmail.com>
 
-This project is a independently maintained working copy. All candidate names, Aadhaar numbers, and bank account numbers in the seed/demo data are synthetic. No license file was present in the source material — add one before publishing publicly if you intend to grant specific usage rights.
+---
+
+## 📄 License
+
+MIT © TribalScholar AI

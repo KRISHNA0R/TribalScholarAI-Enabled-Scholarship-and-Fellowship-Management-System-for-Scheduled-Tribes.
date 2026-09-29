@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
 import { useNotification } from '../context/NotificationContext.jsx';
+import { useAccessibility } from '../context/AccessibilityContext.jsx';
 import { GraduationCap, Lock, Mail, Phone, User, Calendar, MapPin, ArrowRight, CheckCircle2 } from 'lucide-react';
 
 const RegisterPage = () => {
@@ -23,6 +24,7 @@ const RegisterPage = () => {
   const [loading, setLoading] = useState(false);
 
   const { register } = useAuth();
+  const { t } = useAccessibility();
   const { addToast } = useNotification();
   const navigate = useNavigate();
 
@@ -66,14 +68,18 @@ const RegisterPage = () => {
     <div className="min-h-[85vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-slate-50">
       <div className="max-w-xl w-full space-y-6">
         <div className="text-center space-y-1">
-          <div className="w-12 h-12 rounded-xl bg-gov-navy-900 text-amber-400 flex items-center justify-center mx-auto shadow-md border border-amber-500/30">
-            <GraduationCap className="w-6 h-6" />
-          </div>
+          <img
+            src="/logotri.png"
+            alt="TribalScholar AI logo"
+            width={48}
+            height={48}
+            className="w-12 h-12 rounded-xl object-contain bg-white mx-auto shadow-md border border-gov-navy-200"
+          />
           <h2 className="text-2xl font-extrabold text-gov-navy-950 tracking-tight">
-            Applicant Registration
+            {t('register.title')}
           </h2>
           <p className="text-xs text-slate-600">
-            Scheduled Tribe Students Portal &bull; Ministry of Tribal Affairs
+            {t('register.subtitle')}
           </p>
         </div>
 

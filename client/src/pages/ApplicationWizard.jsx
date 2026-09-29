@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
 import { useNotification } from '../context/NotificationContext.jsx';
+import { useAccessibility } from '../context/AccessibilityContext.jsx';
 import api from '../services/api.js';
 import {
   GraduationCap,
@@ -24,6 +25,7 @@ import { formatINR } from '../utils/formatters.js';
 const ApplicationWizard = () => {
   const { user, profile } = useAuth();
   const { addToast } = useNotification();
+  const { t } = useAccessibility();
   const navigate = useNavigate();
   const location = useLocation();
   const [searchParams] = useSearchParams();
@@ -203,8 +205,8 @@ const ApplicationWizard = () => {
   const handleSubmitApplication = async () => {
     if (!formData.declarationConfirmed) {
       addToast({
-        title: 'Declaration Required',
-        message: 'Please accept statutory verification declaration.',
+        title: t('wizard.declarationRequiredTitle'),
+        message: t('wizard.declarationRequiredMsg'),
         type: 'warning',
       });
       return;
@@ -215,16 +217,16 @@ const ApplicationWizard = () => {
       const res = await api.post(`/applications/${applicationId}/submit`);
       if (res.success) {
         addToast({
-          title: 'Application Submitted Successfully',
-          message: 'Your scholarship application is now queued for document verification scrutiny.',
+          title: t('wizard.submitSuccessTitle'),
+          message: t('wizard.submitSuccessMsg'),
           type: 'success',
         });
         navigate(`/applicant/application/${applicationId}`);
       }
     } catch (err) {
       addToast({
-        title: 'Submission Failed',
-        message: err.userMessage || 'Could not complete submission.',
+        title: t('wizard.submitFailedTitle'),
+        message: err.userMessage || t('wizard.submitFailedMsg'),
         type: 'error',
       });
     } finally {
@@ -234,17 +236,28 @@ const ApplicationWizard = () => {
 
   const currentScheme = schemes.find((s) => s._id === selectedSchemeId) || schemes[0];
 
+  // Safe status translation: shared status.* -> wizard.status.* -> raw enum value
+  const statusText = (value) => {
+    if (!value) return value;
+    const sharedKey = `status.${value}`;
+    const shared = t(sharedKey);
+    if (shared !== sharedKey) return shared;
+    const localKey = `wizard.status.${value}`;
+    const local = t(localKey);
+    return local === localKey ? value : local;
+  };
+
   const stepsList = [
-    { num: 1, label: 'Personal Details' },
-    { num: 2, label: 'Category & Social' },
-    { num: 3, label: 'Academic' },
-    { num: 4, label: 'Institution' },
-    { num: 5, label: 'Family & Income' },
-    { num: 6, label: 'Bank / DBT' },
-    { num: 7, label: 'Scheme Questions' },
-    { num: 8, label: 'Document Upload' },
-    { num: 9, label: 'AI Verification' },
-    { num: 10, label: 'Declaration & Submit' },
+    { num: 1, label: t('wizard.step1') },
+    { num: 2, label: t('wizard.step2') },
+    { num: 3, label: t('wizard.step3') },
+    { num: 4, label: t('wizard.step4') },
+    { num: 5, label: t('wizard.step5') },
+    { num: 6, label: t('wizard.step6') },
+    { num: 7, label: t('wizard.step7') },
+    { num: 8, label: t('wizard.step8') },
+    { num: 9, label: t('wizard.step9') },
+    { num: 10, label: t('wizard.step10') },
   ];
 
   return (
@@ -254,26 +267,26 @@ const ApplicationWizard = () => {
         <div>
           <div className="flex items-center gap-2">
             <span className="text-[10px] font-bold bg-amber-100 text-amber-800 border border-amber-300 px-2 py-0.5 rounded">
-              10-Step Official MoTA Wizard
+              {t('wizard.badgeOfficial')}
             </span>
             {saving && (
               <span className="text-[11px] text-slate-500 flex items-center gap-1 animate-pulse">
-                <Save className="w-3 h-3" /> Draft autosaved
+                <Save className="w-3 h-3" /> {t('wizard.draftAutosaved')}
               </span>
             )}
           </div>
           <h1 className="text-xl sm:text-2xl font-extrabold text-gov-navy-950 mt-1">
-            Application for {currentScheme?.shortTitle || 'ST Scholarship'}
+            {t('wizard.applicationFor', { scheme: currentScheme?.shortTitle || t('wizard.defaultSchemeTitle') })}
           </h1>
           <p className="text-xs text-slate-600">
-            Academic Session 2025-26 &bull; Direct Benefit Transfer Enabled
+            {t('wizard.academicSession')}
           </p>
         </div>
 
         {/* Scheme Selector */}
         <div className="w-full md:w-64">
           <label className="block text-[11px] font-bold text-slate-600 uppercase mb-1">
-            Selected Scheme
+            {t('wizard.selectedScheme')}
           </label>
           <select
             value={selectedSchemeId}
@@ -331,11 +344,11 @@ const ApplicationWizard = () => {
           <div className="space-y-4 animate-in fade-in">
             <h3 className="font-bold text-sm text-gov-navy-950 pb-2 border-b border-slate-100 flex items-center gap-2">
               <User className="w-4 h-4 text-gov-navy-900" />
-              Step 1: Student Personal Details
+              {t('wizard.step1Title')}
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
               <div>
-                <label className="block font-semibold text-slate-700 mb-1">Full Name *</label>
+                <label className="block font-semibold text-slate-700 mb-1">{t('wizard.fullName')}</label>
                 <input
                   type="text"
                   value={formData.fullName}
@@ -344,7 +357,7 @@ const ApplicationWizard = () => {
                 />
               </div>
               <div>
-                <label className="block font-semibold text-slate-700 mb-1">Date of Birth *</label>
+                <label className="block font-semibold text-slate-700 mb-1">{t('wizard.dob')}</label>
                 <input
                   type="date"
                   value={formData.dob}
@@ -353,19 +366,19 @@ const ApplicationWizard = () => {
                 />
               </div>
               <div>
-                <label className="block font-semibold text-slate-700 mb-1">Gender *</label>
+                <label className="block font-semibold text-slate-700 mb-1">{t('wizard.gender')}</label>
                 <select
                   value={formData.gender}
                   onChange={(e) => setFormData({ ...formData, gender: e.target.value })}
                   className="w-full p-2 bg-slate-50 border border-slate-300 rounded-lg"
                 >
-                  <option value="Male">Male</option>
-                  <option value="Female">Female</option>
-                  <option value="Transgender">Transgender</option>
+                  <option value="Male">{t('wizard.male')}</option>
+                  <option value="Female">{t('wizard.female')}</option>
+                  <option value="Transgender">{t('wizard.transgender')}</option>
                 </select>
               </div>
               <div>
-                <label className="block font-semibold text-slate-700 mb-1">Father's Name *</label>
+                <label className="block font-semibold text-slate-700 mb-1">{t('wizard.fatherName')}</label>
                 <input
                   type="text"
                   value={formData.fatherName}
@@ -374,7 +387,7 @@ const ApplicationWizard = () => {
                 />
               </div>
               <div>
-                <label className="block font-semibold text-slate-700 mb-1">Mother's Name *</label>
+                <label className="block font-semibold text-slate-700 mb-1">{t('wizard.motherName')}</label>
                 <input
                   type="text"
                   value={formData.motherName}
@@ -383,7 +396,7 @@ const ApplicationWizard = () => {
                 />
               </div>
               <div>
-                <label className="block font-semibold text-slate-700 mb-1">Pincode *</label>
+                <label className="block font-semibold text-slate-700 mb-1">{t('wizard.pincode')}</label>
                 <input
                   type="text"
                   value={formData.pincode}
@@ -392,7 +405,7 @@ const ApplicationWizard = () => {
                 />
               </div>
               <div className="sm:col-span-2">
-                <label className="block font-semibold text-slate-700 mb-1">Permanent Residential Address *</label>
+                <label className="block font-semibold text-slate-700 mb-1">{t('wizard.address')}</label>
                 <input
                   type="text"
                   value={formData.addressLine}
@@ -409,40 +422,40 @@ const ApplicationWizard = () => {
           <div className="space-y-4 animate-in fade-in">
             <h3 className="font-bold text-sm text-gov-navy-950 pb-2 border-b border-slate-100 flex items-center gap-2">
               <ShieldCheck className="w-4 h-4 text-gov-navy-900" />
-              Step 2: Scheduled Tribe (ST) & Social Demographics
+              {t('wizard.step2Title')}
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
               <div>
-                <label className="block font-semibold text-slate-700 mb-1">Category *</label>
+                <label className="block font-semibold text-slate-700 mb-1">{t('wizard.category')}</label>
                 <input
                   type="text"
                   disabled
-                  value="Scheduled Tribe (ST)"
+                  value={t('wizard.categoryValue')}
                   className="w-full p-2 bg-slate-100 border border-slate-300 rounded-lg text-slate-700 font-bold"
                 />
               </div>
               <div>
-                <label className="block font-semibold text-slate-700 mb-1">Tribe Community *</label>
+                <label className="block font-semibold text-slate-700 mb-1">{t('wizard.tribeCommunity')}</label>
                 <input
                   type="text"
                   value={formData.tribeName}
                   onChange={(e) => setFormData({ ...formData, tribeName: e.target.value })}
-                  placeholder="e.g. Santhal, Bhil, Gond, Munda"
+                  placeholder={t('wizard.tribePlaceholder')}
                   className="w-full p-2 bg-slate-50 border border-slate-300 rounded-lg"
                 />
               </div>
               <div>
-                <label className="block font-semibold text-slate-700 mb-1">Sub-Tribe (Optional)</label>
+                <label className="block font-semibold text-slate-700 mb-1">{t('wizard.subTribe')}</label>
                 <input
                   type="text"
                   value={formData.subTribe}
                   onChange={(e) => setFormData({ ...formData, subTribe: e.target.value })}
-                  placeholder="Sub-clan / community name"
+                  placeholder={t('wizard.subTribePlaceholder')}
                   className="w-full p-2 bg-slate-50 border border-slate-300 rounded-lg"
                 />
               </div>
               <div>
-                <label className="block font-semibold text-slate-700 mb-1">ST Caste Certificate Number *</label>
+                <label className="block font-semibold text-slate-700 mb-1">{t('wizard.stCertificateNo')}</label>
                 <input
                   type="text"
                   value={formData.stCertificateNo}
@@ -454,10 +467,10 @@ const ApplicationWizard = () => {
               <div className="sm:col-span-2 bg-amber-50 border border-amber-200 rounded-xl p-4 flex items-center justify-between">
                 <div>
                   <div className="font-bold text-amber-950 text-xs">
-                    Particularly Vulnerable Tribal Group (PVTG) Status
+                    {t('wizard.pvtgTitle')}
                   </div>
                   <p className="text-[11px] text-amber-800">
-                    Students from 75 notified PVTGs receive statutory reservation and priority merit weighting.
+                    {t('wizard.pvtgDesc')}
                   </p>
                 </div>
                 <label className="relative inline-flex items-center cursor-pointer">
@@ -479,25 +492,25 @@ const ApplicationWizard = () => {
           <div className="space-y-4 animate-in fade-in">
             <h3 className="font-bold text-sm text-gov-navy-950 pb-2 border-b border-slate-100 flex items-center gap-2">
               <GraduationCap className="w-4 h-4 text-gov-navy-900" />
-              Step 3: Academic Record & Qualification
+              {t('wizard.step3Title')}
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
               <div>
-                <label className="block font-semibold text-slate-700 mb-1">Current Education Level *</label>
+                <label className="block font-semibold text-slate-700 mb-1">{t('wizard.educationLevel')}</label>
                 <select
                   value={formData.currentEducationLevel}
                   onChange={(e) => setFormData({ ...formData, currentEducationLevel: e.target.value })}
                   className="w-full p-2 bg-slate-50 border border-slate-300 rounded-lg"
                 >
-                  <option value="Class 10">Class 9 / 10</option>
-                  <option value="Class 12">Class 11 / 12</option>
-                  <option value="Undergraduate">Undergraduate (UG)</option>
-                  <option value="Postgraduate">Postgraduate (PG)</option>
-                  <option value="Ph.D">Ph.D / Research</option>
+                  <option value="Class 10">{t('wizard.levelClass10')}</option>
+                  <option value="Class 12">{t('wizard.levelClass12')}</option>
+                  <option value="Undergraduate">{t('wizard.levelUG')}</option>
+                  <option value="Postgraduate">{t('wizard.levelPG')}</option>
+                  <option value="Ph.D">{t('wizard.levelPhD')}</option>
                 </select>
               </div>
               <div>
-                <label className="block font-semibold text-slate-700 mb-1">Course / Degree Name *</label>
+                <label className="block font-semibold text-slate-700 mb-1">{t('wizard.courseName')}</label>
                 <input
                   type="text"
                   value={formData.courseName}
@@ -507,7 +520,7 @@ const ApplicationWizard = () => {
               </div>
               <div>
                 <label className="block font-semibold text-slate-700 mb-1">
-                  Previous Exam Marks Percentage (%) *
+                  {t('wizard.marksPercentage')}
                 </label>
                 <input
                   type="number"
@@ -522,7 +535,7 @@ const ApplicationWizard = () => {
                 />
               </div>
               <div>
-                <label className="block font-semibold text-slate-700 mb-1">Roll / Registration Number *</label>
+                <label className="block font-semibold text-slate-700 mb-1">{t('wizard.rollNumber')}</label>
                 <input
                   type="text"
                   value={formData.rollNumber}
@@ -539,11 +552,11 @@ const ApplicationWizard = () => {
           <div className="space-y-4 animate-in fade-in">
             <h3 className="font-bold text-sm text-gov-navy-950 pb-2 border-b border-slate-100 flex items-center gap-2">
               <Building className="w-4 h-4 text-gov-navy-900" />
-              Step 4: Educational Institution Details
+              {t('wizard.step4Title')}
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
               <div className="sm:col-span-2">
-                <label className="block font-semibold text-slate-700 mb-1">Institution Name *</label>
+                <label className="block font-semibold text-slate-700 mb-1">{t('wizard.institutionName')}</label>
                 <input
                   type="text"
                   value={formData.institutionName}
@@ -552,21 +565,21 @@ const ApplicationWizard = () => {
                 />
               </div>
               <div>
-                <label className="block font-semibold text-slate-700 mb-1">Institution Type *</label>
+                <label className="block font-semibold text-slate-700 mb-1">{t('wizard.institutionType')}</label>
                 <select
                   value={formData.institutionType}
                   onChange={(e) => setFormData({ ...formData, institutionType: e.target.value })}
                   className="w-full p-2 bg-slate-50 border border-slate-300 rounded-lg"
                 >
-                  <option value="Premier Institute (IIT/NIT/IIM/AIIMS)">Premier Institute (IIT/NIT/IIM/AIIMS)</option>
-                  <option value="Central University">Central University</option>
-                  <option value="State University">State University</option>
-                  <option value="Govt College">Government College</option>
-                  <option value="Govt School">Government School</option>
+                  <option value="Premier Institute (IIT/NIT/IIM/AIIMS)">{t('wizard.instPremier')}</option>
+                  <option value="Central University">{t('wizard.instCentralUniversity')}</option>
+                  <option value="State University">{t('wizard.instStateUniversity')}</option>
+                  <option value="Govt College">{t('wizard.instGovtCollege')}</option>
+                  <option value="Govt School">{t('wizard.instGovtSchool')}</option>
                 </select>
               </div>
               <div>
-                <label className="block font-semibold text-slate-700 mb-1">AISHE / U-DISE Code *</label>
+                <label className="block font-semibold text-slate-700 mb-1">{t('wizard.aisheCode')}</label>
                 <input
                   type="text"
                   value={formData.aisheCode}
@@ -583,12 +596,12 @@ const ApplicationWizard = () => {
           <div className="space-y-4 animate-in fade-in">
             <h3 className="font-bold text-sm text-gov-navy-950 pb-2 border-b border-slate-100 flex items-center gap-2">
               <CreditCard className="w-4 h-4 text-gov-navy-900" />
-              Step 5: Annual Family Income & Certificate
+              {t('wizard.step5Title')}
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
               <div>
                 <label className="block font-semibold text-slate-700 mb-1">
-                  Annual Family Income (From All Sources) (₹) *
+                  {t('wizard.annualIncome')}
                 </label>
                 <input
                   type="number"
@@ -597,12 +610,12 @@ const ApplicationWizard = () => {
                   className="w-full p-2 bg-slate-50 border border-slate-300 rounded-lg font-bold text-slate-900 text-sm"
                 />
                 <span className="text-[10px] text-slate-500">
-                  Scheme ceiling: {formatINR(currentScheme?.incomeLimit)}
+                  {t('wizard.schemeCeiling', { amount: formatINR(currentScheme?.incomeLimit) })}
                 </span>
               </div>
               <div>
                 <label className="block font-semibold text-slate-700 mb-1">
-                  Income Certificate Reference Number *
+                  {t('wizard.incomeCertificateNo')}
                 </label>
                 <input
                   type="text"
@@ -612,7 +625,7 @@ const ApplicationWizard = () => {
                 />
               </div>
               <div>
-                <label className="block font-semibold text-slate-700 mb-1">Father's Occupation</label>
+                <label className="block font-semibold text-slate-700 mb-1">{t('wizard.fatherOccupation')}</label>
                 <input
                   type="text"
                   value={formData.fatherOccupation}
@@ -629,20 +642,20 @@ const ApplicationWizard = () => {
           <div className="space-y-4 animate-in fade-in">
             <h3 className="font-bold text-sm text-gov-navy-950 pb-2 border-b border-slate-100 flex items-center gap-2">
               <CreditCard className="w-4 h-4 text-gov-navy-900" />
-              Step 6: Bank Account & Aadhaar DBT Seeding
+              {t('wizard.step6Title')}
             </h3>
             <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-4 space-y-2 text-xs">
               <div className="font-bold text-emerald-950 flex items-center gap-2">
                 <CheckCircle className="w-4 h-4 text-emerald-700" />
-                Aadhaar Payment Bridge System (APBS) Active
+                {t('wizard.apbsActive')}
               </div>
               <p className="text-[11px] text-emerald-800 leading-relaxed">
-                Scholarship funds are disbursed via PFMS / APBS directly into your Aadhaar linked bank account without intermediary deductions.
+                {t('wizard.apbsDesc')}
               </p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
               <div>
-                <label className="block font-semibold text-slate-700 mb-1">Account Holder Name *</label>
+                <label className="block font-semibold text-slate-700 mb-1">{t('wizard.accountHolderName')}</label>
                 <input
                   type="text"
                   value={formData.accountHolderName}
@@ -651,7 +664,7 @@ const ApplicationWizard = () => {
                 />
               </div>
               <div>
-                <label className="block font-semibold text-slate-700 mb-1">Bank Name *</label>
+                <label className="block font-semibold text-slate-700 mb-1">{t('wizard.bankName')}</label>
                 <input
                   type="text"
                   value={formData.bankName}
@@ -660,7 +673,7 @@ const ApplicationWizard = () => {
                 />
               </div>
               <div>
-                <label className="block font-semibold text-slate-700 mb-1">IFSC Code *</label>
+                <label className="block font-semibold text-slate-700 mb-1">{t('wizard.ifscCode')}</label>
                 <input
                   type="text"
                   value={formData.ifscCode}
@@ -669,7 +682,7 @@ const ApplicationWizard = () => {
                 />
               </div>
               <div>
-                <label className="block font-semibold text-slate-700 mb-1">Masked Account Number *</label>
+                <label className="block font-semibold text-slate-700 mb-1">{t('wizard.maskedAccount')}</label>
                 <input
                   type="text"
                   disabled
@@ -686,13 +699,13 @@ const ApplicationWizard = () => {
           <div className="space-y-4 animate-in fade-in">
             <h3 className="font-bold text-sm text-gov-navy-950 pb-2 border-b border-slate-100 flex items-center gap-2">
               <FileText className="w-4 h-4 text-gov-navy-900" />
-              Step 7: Scheme-Specific Criteria ({currentScheme?.shortTitle})
+              {t('wizard.step7Title', { scheme: currentScheme?.shortTitle || '' })}
             </h3>
             {currentScheme?.schemeCode === 'NFST_FELLOWSHIP' ? (
               <div className="space-y-3 text-xs">
                 <div>
                   <label className="block font-semibold text-slate-700 mb-1">
-                    Ph.D / M.Phil Research Proposal Title *
+                    {t('wizard.researchProposalTitle')}
                   </label>
                   <input
                     type="text"
@@ -702,7 +715,7 @@ const ApplicationWizard = () => {
                   />
                 </div>
                 <div>
-                  <label className="block font-semibold text-slate-700 mb-1">Research Guide / Supervisor *</label>
+                  <label className="block font-semibold text-slate-700 mb-1">{t('wizard.researchGuide')}</label>
                   <input
                     type="text"
                     value={formData.guideName}
@@ -715,7 +728,7 @@ const ApplicationWizard = () => {
               <div className="space-y-3 text-xs">
                 <div>
                   <label className="block font-semibold text-slate-700 mb-1">
-                    Foreign Accredited University *
+                    {t('wizard.foreignUniversity')}
                   </label>
                   <input
                     type="text"
@@ -726,7 +739,7 @@ const ApplicationWizard = () => {
                 </div>
                 <div>
                   <label className="block font-semibold text-slate-700 mb-1">
-                    QS World University Ranking (Top 500 mandatory) *
+                    {t('wizard.qsRanking')}
                   </label>
                   <input
                     type="number"
@@ -739,7 +752,7 @@ const ApplicationWizard = () => {
             ) : (
               <div className="space-y-3 text-xs">
                 <p className="text-slate-600">
-                  Standard criteria apply. Please confirm whether you are residing in a recognized tribal hostel:
+                  {t('wizard.standardCriteria')}
                 </p>
                 <div className="flex gap-4 pt-1">
                   <label className="flex items-center gap-2 cursor-pointer">
@@ -749,7 +762,7 @@ const ApplicationWizard = () => {
                       checked={formData.isHosteller}
                       onChange={() => setFormData({ ...formData, isHosteller: true })}
                     />
-                    <span>Hosteller (Eligible for hosteller allowance rate)</span>
+                    <span>{t('wizard.hosteller')}</span>
                   </label>
                   <label className="flex items-center gap-2 cursor-pointer">
                     <input
@@ -758,7 +771,7 @@ const ApplicationWizard = () => {
                       checked={!formData.isHosteller}
                       onChange={() => setFormData({ ...formData, isHosteller: false })}
                     />
-                    <span>Day Scholar</span>
+                    <span>{t('wizard.dayScholar')}</span>
                   </label>
                 </div>
               </div>
@@ -771,19 +784,19 @@ const ApplicationWizard = () => {
           <div className="space-y-4 animate-in fade-in">
             <h3 className="font-bold text-sm text-gov-navy-950 pb-2 border-b border-slate-100 flex items-center gap-2">
               <Upload className="w-4 h-4 text-gov-navy-900" />
-              Step 8: Upload Statutory Certificates & Marksheets
+              {t('wizard.step8Title')}
             </h3>
             <p className="text-xs text-slate-600">
-              Files are automatically evaluated using our AI Document Intelligence pipeline and cryptographic SHA-256 hash indexing.
+              {t('wizard.uploadIntro')}
             </p>
 
             <div className="space-y-3">
               {[
-                { type: 'ST_CERTIFICATE', name: 'Scheduled Tribe (ST) Certificate', mandatory: true },
-                { type: 'INCOME_CERTIFICATE', name: 'Annual Income Certificate (Revenue Dept)', mandatory: true },
-                { type: 'ACADEMIC_MARKSHEET', name: 'Qualifying Examination Marksheet', mandatory: true },
-                { type: 'ADMISSION_BONAFIDE', name: 'Current Year Bonafide / Admission Receipt', mandatory: true },
-                { type: 'BANK_PASSBOOK_CANCELLED_CHEQUE', name: 'Bank Passbook Leaf (Aadhaar Seeded)', mandatory: true },
+                { type: 'ST_CERTIFICATE', name: t('wizard.docST'), mandatory: true },
+                { type: 'INCOME_CERTIFICATE', name: t('wizard.docIncome'), mandatory: true },
+                { type: 'ACADEMIC_MARKSHEET', name: t('wizard.docMarksheet'), mandatory: true },
+                { type: 'ADMISSION_BONAFIDE', name: t('wizard.docBonafide'), mandatory: true },
+                { type: 'BANK_PASSBOOK_CANCELLED_CHEQUE', name: t('wizard.docPassbook'), mandatory: true },
               ].map((item) => (
                 <div
                   key={item.type}
@@ -796,20 +809,20 @@ const ApplicationWizard = () => {
                     <div>
                       <div className="text-xs font-bold text-slate-900">{item.name}</div>
                       <div className="text-[10px] text-slate-500">
-                        PDF or JPG &bull; Max 5MB &bull; High Resolution Scan
+                        {t('wizard.fileHint')}
                       </div>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-2">
                     <span className="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded flex items-center gap-1">
-                      <CheckCircle className="w-3 h-3" /> Ready for OCR
+                      <CheckCircle className="w-3 h-3" /> {t('wizard.readyForOcr')}
                     </span>
                     <button
                       type="button"
                       className="text-xs bg-white hover:bg-slate-100 border border-slate-300 text-slate-700 px-2.5 py-1 rounded cursor-pointer transition-colors"
                     >
-                      Re-upload
+                      {t('wizard.reupload')}
                     </button>
                   </div>
                 </div>
@@ -823,10 +836,10 @@ const ApplicationWizard = () => {
           <div className="space-y-4 animate-in fade-in">
             <h3 className="font-bold text-sm text-gov-navy-950 pb-2 border-b border-slate-100 flex items-center gap-2">
               <Cpu className="w-4 h-4 text-amber-600" />
-              Step 9: AI Verification & Rule Engine Preview
+              {t('wizard.step9Title')}
             </h3>
             <p className="text-xs text-slate-600">
-              The MoTA configurable rule engine has pre-evaluated your eligibility benchmarks.
+              {t('wizard.aiPreviewIntro')}
             </p>
 
             {aiPreviewData ? (
@@ -842,22 +855,22 @@ const ApplicationWizard = () => {
                     <ShieldCheck className="w-6 h-6 text-emerald-700" />
                     <div>
                       <div className="font-bold text-sm">
-                        Pre-Scrutiny Assessment: {aiPreviewData.decision}
+                        {t('wizard.preScrutiny', { decision: statusText(aiPreviewData.decision) })}
                       </div>
                       <div className="text-xs opacity-90">
-                        Composite Merit Score: {aiPreviewData.compositeMeritScore}/100 &bull; Ready for Officer Verification
+                        {t('wizard.meritScore', { score: aiPreviewData.compositeMeritScore })}
                       </div>
                     </div>
                   </div>
                   <span className="text-xs font-bold uppercase tracking-wider px-2 py-1 rounded bg-white border border-slate-200 shadow-2xs">
-                    Confidence 97.4%
+                    {t('wizard.confidenceBadge')}
                   </span>
                 </div>
 
                 {/* Evaluated Rules Breakdown */}
                 <div className="space-y-2">
                   <div className="text-xs font-bold text-slate-800 uppercase tracking-wider">
-                    Statutory Criteria Evaluated:
+                    {t('wizard.criteriaEvaluated')}
                   </div>
                   {aiPreviewData.ruleResults?.map((r, idx) => (
                     <div
@@ -876,7 +889,7 @@ const ApplicationWizard = () => {
                         </div>
                       </div>
                       <span className="font-mono text-[11px] text-slate-700">
-                        {r.passed ? 'PASSED' : 'FLAGGED'}
+                        {r.passed ? t('wizard.passed') : t('wizard.flagged')}
                       </span>
                     </div>
                   ))}
@@ -884,7 +897,7 @@ const ApplicationWizard = () => {
               </div>
             ) : (
               <div className="py-8 text-center text-xs text-slate-500">
-                Evaluating scheme rules...
+                {t('wizard.evaluatingRules')}
               </div>
             )}
           </div>
@@ -895,15 +908,15 @@ const ApplicationWizard = () => {
           <div className="space-y-5 animate-in fade-in">
             <h3 className="font-bold text-sm text-gov-navy-950 pb-2 border-b border-slate-100 flex items-center gap-2">
               <CheckSquare className="w-4 h-4 text-gov-navy-900" />
-              Step 10: Declaration & Statutory Submission
+              {t('wizard.step10Title')}
             </h3>
 
             <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 text-xs text-slate-700 space-y-2 leading-relaxed">
               <p>
-                <strong>Statutory Undertaking:</strong> I hereby declare that the particulars provided in this scholarship/fellowship application are true, complete, and correct to the best of my knowledge and belief. I belong to the Scheduled Tribe community recognized under the Constitution of India.
+                <strong>{t('wizard.undertakingLabel')}</strong> {t('wizard.undertakingText')}
               </p>
               <p>
-                I understand that any misrepresentation of annual income or educational credentials will render me liable to disqualification, recovery of scholarship amounts via PFMS, and statutory legal action.
+                {t('wizard.undertakingWarning')}
               </p>
             </div>
 
@@ -915,7 +928,7 @@ const ApplicationWizard = () => {
                 className="mt-1 w-4 h-4 text-gov-navy-900 rounded focus:ring-amber-500"
               />
               <span className="text-xs font-semibold text-slate-800">
-                I have reviewed all 10 application sections and agree to the statutory terms of the Ministry of Tribal Affairs.
+                {t('wizard.declarationCheckbox')}
               </span>
             </label>
           </div>
@@ -933,7 +946,7 @@ const ApplicationWizard = () => {
                 : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
             }`}
           >
-            <ArrowLeft className="w-3.5 h-3.5" /> Previous Step
+            <ArrowLeft className="w-3.5 h-3.5" /> {t('wizard.previousStep')}
           </button>
 
           <div className="flex items-center gap-2">
@@ -943,7 +956,7 @@ const ApplicationWizard = () => {
               disabled={saving}
               className="px-3.5 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:bg-slate-100 flex items-center gap-1.5 transition-colors"
             >
-              <Save className="w-3.5 h-3.5" /> Save Draft
+              <Save className="w-3.5 h-3.5" /> {t('wizard.saveDraft')}
             </button>
 
             {currentStep < 10 ? (
@@ -952,7 +965,7 @@ const ApplicationWizard = () => {
                 onClick={handleNext}
                 className="bg-gov-navy-900 hover:bg-gov-navy-800 text-white font-bold text-xs px-5 py-2.5 rounded-lg flex items-center gap-1.5 shadow-xs transition-colors"
               >
-                Save & Continue <ArrowRight className="w-3.5 h-3.5" />
+                {t('wizard.saveContinue')} <ArrowRight className="w-3.5 h-3.5" />
               </button>
             ) : (
               <button
@@ -961,7 +974,7 @@ const ApplicationWizard = () => {
                 disabled={submitting}
                 className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs px-6 py-2.5 rounded-lg flex items-center gap-1.5 shadow-md transition-colors"
               >
-                {submitting ? 'Submitting to Ministry...' : 'Submit Final Application'}
+                {submitting ? t('wizard.submittingMinistry') : t('wizard.submitFinal')}
                 <CheckCircle className="w-4 h-4" />
               </button>
             )}

@@ -1,0 +1,32 @@
+export default {
+  'privacy.badge': 'STATUTORY COMPLIANCE ARCHITECTURE',
+  'privacy.title': 'Security, Privacy & Data Protection Framework',
+  'privacy.subtitle': 'TribalScholar AI is engineered in strict accordance with the Digital Personal Data Protection (DPDP) Act 2023, Aadhaar Data Vault circulars, CERT-In cybersecurity guidelines, and National Informatics Centre (NIC) security benchmarks.',
+
+  'privacy.pillar1Title': 'Aadhaar Data Vault & Cryptographic Masking',
+  'privacy.pillar1Desc1': 'In compliance with UIDAI regulations, raw 12-digit Aadhaar numbers are never stored in clear text or persistent application databases. Only reference keys and masked tokens (e.g. ',
+  'privacy.pillar1Desc2': ') are processed for PFMS payment bridge synchronization.',
+  'privacy.pillar2Title': 'Cryptographic Document Tamper Detection',
+  'privacy.pillar2Desc': 'Every uploaded statutory certificate (Caste Certificate, Income Certificate, Marksheet) has a cryptographically immutable SHA-256 checksum calculated upon upload. If a file is altered or submitted under another applicant\'s record, the anomaly detection engine immediately flags duplicate or tampered evidence.',
+  'privacy.pillar3Title': 'Strict Role-Based Access Control (RBAC)',
+  'privacy.pillar3Desc': 'Every route and controller operation requires explicit JWT token verification and role assertion. Scrutiny officers cannot authorize payments, students cannot view unreleased selection rankings, and audit logs record every sensitive transition with officer identifiers and timestamps.',
+  'privacy.pillar4Title': 'Immutable Audit Trail & Anti-Fraud Ledger',
+  'privacy.pillar4Desc': 'All lifecycle transitions — including application submission, OCR extraction overrides, deficiency remediation, selection committee merit scores, and DBT batch disbursements — generate structured audit events to prevent administrative discretion and ensure public scrutiny compliance.',
+
+  'privacy.dpdpHeading': 'Digital Personal Data Protection (DPDP) Act 2023 Alignment',
+  'privacy.thPrinciple': 'DPDP Statutory Principle',
+  'privacy.thMechanism': 'Portal Implementation Mechanism',
+  'privacy.row1Principle': 'Purpose Limitation',
+  'privacy.row1Mechanism': 'Data collected strictly for MoTA ST scholarship eligibility determination and PFMS transfer.',
+  'privacy.row2Principle': 'Data Minimization',
+  'privacy.row2Mechanism': 'Only essential socio-demographic, academic, and banking fields requested during application.',
+  'privacy.row3Principle': 'Consent & Transparency',
+  'privacy.row3Mechanism': 'Explicit applicant consent obtained on step 10 declaration before AI evaluation.',
+  'privacy.row4Principle': 'Storage Limitation',
+  'privacy.row4Mechanism': 'Automated archival schedules aligned with General Financial Rules (GFR) government records retention.',
+  'privacy.enforced': 'Enforced',
+
+  'privacy.ctaTitle': 'Explore the Live SIH Evaluation Suite',
+  'privacy.ctaDesc': 'Experience the automated OCR audit, AI discrepancy triggers, and role transitions in real time.',
+  'privacy.ctaButton': 'Open Judge Demo Hub',
+};

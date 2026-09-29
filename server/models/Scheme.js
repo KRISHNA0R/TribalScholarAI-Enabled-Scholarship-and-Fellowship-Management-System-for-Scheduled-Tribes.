@@ -56,6 +56,17 @@ const schemeSchema = new mongoose.Schema(
       type: String,
       default: 'Ministry of Tribal Affairs, Government of India',
     },
+    officialUrl: {
+      type: String,
+      default: 'https://tribal.nic.in/ScholarshiP.aspx',
+    },
+    officialSource: {
+      type: String,
+      default: 'MoTA Scholarship & DBT portal',
+    },
+    guidelinesVerifiedOn: {
+      type: Date,
+    },
     schemeType: {
       type: String,
       enum: ['SCHOLARSHIP', 'FELLOWSHIP', 'OVERSEAS_SCHOLARSHIP'],

@@ -66,6 +66,7 @@ const DocumentManagerPage = () => {
                   <th className="p-3.5">Document Type</th>
                   <th className="p-3.5">File Name</th>
                   <th className="p-3.5">Cryptographic Hash (SHA-256)</th>
+                  <th className="p-3.5">File Integrity</th>
                   <th className="p-3.5">OCR Status</th>
                   <th className="p-3.5">Verification</th>
                   <th className="p-3.5">Uploaded Date</th>
@@ -80,6 +81,22 @@ const DocumentManagerPage = () => {
                     <td className="p-3.5 font-medium text-slate-800">{doc.originalFileName}</td>
                     <td className="p-3.5 font-mono text-[11px] text-slate-500">
                       {doc.documentHash?.slice(0, 20)}...
+                    </td>
+                    <td className="p-3.5">
+                      {doc.integritySummary && doc.integritySummary.total > 0 ? (
+                        <span
+                          title="Signature, structure and readability checks executed on actual file bytes"
+                          className={`text-[10px] font-bold px-2 py-0.5 rounded ${
+                            doc.integritySummary.passed === doc.integritySummary.total
+                              ? 'bg-emerald-100 text-emerald-800'
+                              : 'bg-amber-100 text-amber-800'
+                          }`}
+                        >
+                          ✓ {doc.integritySummary.passed}/{doc.integritySummary.total} checks
+                        </span>
+                      ) : (
+                        <span className="text-[10px] text-slate-400">Legacy record</span>
+                      )}
                     </td>
                     <td className="p-3.5">
                       <span className="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded">

@@ -13,8 +13,10 @@ import {
   Sparkles,
   ExternalLink,
 } from 'lucide-react';
+import { useAccessibility } from '../context/AccessibilityContext.jsx';
 
 const SchemeCatalogPage = () => {
+  const { t } = useAccessibility();
   const [schemes, setSchemes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
@@ -53,11 +55,11 @@ const SchemeCatalogPage = () => {
           <div className="flex items-center gap-2">
             <GraduationCap className="w-6 h-6 text-gov-navy-900" />
             <h1 className="text-xl sm:text-2xl font-extrabold text-gov-navy-950">
-              Ministry of Tribal Affairs Schemes Directory
+              {t('scheme.title')}
             </h1>
           </div>
           <p className="text-xs text-slate-600">
-            Centrally sponsored scholarships and fellowships for Scheduled Tribe students (Academic Year 2025-2026)
+            {t('scheme.subtitle')}
           </p>
         </div>
 
@@ -66,7 +68,7 @@ const SchemeCatalogPage = () => {
           className="bg-amber-100 hover:bg-amber-200 text-amber-900 text-xs font-bold px-4 py-2.5 rounded-lg border border-amber-300 flex items-center gap-2 transition-colors self-start md:self-auto"
         >
           <Sparkles className="w-4 h-4 text-amber-700" />
-          AI Scheme Finder Assistant
+          {t('scheme.finderAssistant')}
         </Link>
       </div>
 
@@ -78,7 +80,7 @@ const SchemeCatalogPage = () => {
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search by scheme name or keywords..."
+            placeholder={t('scheme.searchPlaceholder')}
             className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gov-navy-900"
           />
         </div>
@@ -89,12 +91,12 @@ const SchemeCatalogPage = () => {
             onChange={(e) => setSelectedLevel(e.target.value)}
             className="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gov-navy-900"
           >
-            <option value="">All Education Levels</option>
-            <option value="Class 10">Class 9 / 10</option>
-            <option value="Class 12">Class 11 / 12</option>
-            <option value="Undergraduate">Undergraduate (UG)</option>
-            <option value="Postgraduate">Postgraduate (PG)</option>
-            <option value="Ph.D">Ph.D / Research</option>
+            <option value="">{t('scheme.allLevels')}</option>
+            <option value="Class 10">{t('scheme.levelClass10')}</option>
+            <option value="Class 12">{t('scheme.levelClass12')}</option>
+            <option value="Undergraduate">{t('scheme.levelUG')}</option>
+            <option value="Postgraduate">{t('scheme.levelPG')}</option>
+            <option value="Ph.D">{t('scheme.levelPhd')}</option>
           </select>
         </div>
 
@@ -104,10 +106,10 @@ const SchemeCatalogPage = () => {
             onChange={(e) => setSelectedType(e.target.value)}
             className="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gov-navy-900"
           >
-            <option value="">All Scheme Types</option>
-            <option value="SCHOLARSHIP">Standard Scholarships</option>
-            <option value="FELLOWSHIP">Doctoral Fellowships</option>
-            <option value="OVERSEAS_SCHOLARSHIP">Overseas Scholarships</option>
+            <option value="">{t('scheme.allTypes')}</option>
+            <option value="SCHOLARSHIP">{t('scheme.typeScholarship')}</option>
+            <option value="FELLOWSHIP">{t('scheme.typeFellowship')}</option>
+            <option value="OVERSEAS_SCHOLARSHIP">{t('scheme.typeOverseas')}</option>
           </select>
         </div>
       </div>
@@ -115,11 +117,11 @@ const SchemeCatalogPage = () => {
       {/* Schemes Grid */}
       {loading ? (
         <div className="py-20 text-center text-xs text-slate-500">
-          Loading official scholarship schemes...
+          {t('scheme.loading')}
         </div>
       ) : schemes.length === 0 ? (
         <div className="bg-white rounded-xl border border-slate-200 p-12 text-center text-slate-500 text-xs">
-          No schemes match your filter criteria. Try clearing search filters.
+          {t('scheme.empty')}
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -135,7 +137,7 @@ const SchemeCatalogPage = () => {
                   </span>
                   <div className="flex items-center gap-1 text-[11px] text-slate-500">
                     <Calendar className="w-3.5 h-3.5" />
-                    <span>Apply before: {new Date(scheme.applicationEndDate).toLocaleDateString()}</span>
+                    <span>{t('scheme.applyBefore', { date: new Date(scheme.applicationEndDate).toLocaleDateString() })}</span>
                   </div>
                 </div>
 
@@ -151,21 +153,21 @@ const SchemeCatalogPage = () => {
                 {/* Key Eligibility Highlights */}
                 <div className="bg-slate-50 rounded-lg p-3 border border-slate-200/80 space-y-1.5 text-xs">
                   <div className="font-semibold text-slate-900 text-[11px] uppercase tracking-wider">
-                    Core Eligibility Criteria:
+                    {t('scheme.eligibilityCriteria')}
                   </div>
                   <div className="grid grid-cols-2 gap-2 text-[11px] text-slate-700">
                     <div>
-                      <span className="text-slate-500">Income Limit:</span> Up to ₹
-                      {scheme.incomeLimit?.toLocaleString('en-IN')}/yr
+                      <span className="text-slate-500">{t('scheme.incomeLimit')}</span>{' '}
+                      {t('scheme.upToPerYear', { amount: `₹${scheme.incomeLimit?.toLocaleString('en-IN')}` })}
                     </div>
                     <div>
-                      <span className="text-slate-500">Target Category:</span> {scheme.applicableCategory}
+                      <span className="text-slate-500">{t('scheme.targetCategory')}</span> {scheme.applicableCategory}
                     </div>
                     <div>
-                      <span className="text-slate-500">Levels:</span> {scheme.educationLevels?.join(', ')}
+                      <span className="text-slate-500">{t('scheme.levels')}</span> {scheme.educationLevels?.join(', ')}
                     </div>
                     <div>
-                      <span className="text-slate-500">Min. Marks:</span> {scheme.minAcademicPercentage}%
+                      <span className="text-slate-500">{t('scheme.minMarks')}</span> {scheme.minAcademicPercentage}%
                     </div>
                   </div>
                 </div>
@@ -174,7 +176,7 @@ const SchemeCatalogPage = () => {
                 <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-3 text-xs text-emerald-900 space-y-1">
                   <div className="font-bold text-[11px] flex items-center gap-1.5">
                     <CheckCircle className="w-3.5 h-3.5 text-emerald-700" />
-                    Financial Benefits & Allowances:
+                    {t('scheme.financialBenefits')}
                   </div>
                   <p className="text-[11px] leading-relaxed text-emerald-800">
                     {scheme.financialBenefits?.benefitSummary}
@@ -184,7 +186,7 @@ const SchemeCatalogPage = () => {
                 {/* Mandatory Documents List */}
                 <div className="space-y-1 text-xs">
                   <span className="font-semibold text-slate-800 text-[11px]">
-                    Mandatory Scanned Documents Required:
+                    {t('scheme.mandatoryDocs')}
                   </span>
                   <div className="flex flex-wrap gap-1.5 pt-1">
                     {scheme.documentsRequired?.map((doc, idx) => (
@@ -202,13 +204,14 @@ const SchemeCatalogPage = () => {
               {/* Action Buttons */}
               <div className="pt-6 border-t border-slate-100 mt-6 flex items-center justify-between">
                 <a
-                  href="https://tribal.nic.in/ScholarshiP.aspx"
+                  href={scheme.officialUrl || 'https://tribal.nic.in/ScholarshiP.aspx'}
                   target="_blank"
                   rel="noreferrer"
+                  title={scheme.officialSource || 'MoTA official guidelines'}
                   className="text-xs text-slate-500 hover:text-slate-700 flex items-center gap-1"
                 >
                   <ExternalLink className="w-3 h-3" />
-                  MoTA Guidelines
+                  {t('scheme.motaGuidelines')}
                 </a>
 
                 <Link
@@ -216,7 +219,7 @@ const SchemeCatalogPage = () => {
                   state={{ schemeId: scheme._id }}
                   className="bg-gov-navy-900 hover:bg-gov-navy-800 text-white font-bold text-xs px-4 py-2 rounded-lg flex items-center gap-2 shadow-xs transition-colors"
                 >
-                  Start Application <ArrowRight className="w-3.5 h-3.5" />
+                  {t('scheme.startApplication')} <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </div>
             </div>

@@ -119,6 +119,9 @@ const seedDatabase = async () => {
         academicYear: '2025-2026',
         activeStatus: true,
         slotsAvailable: 50000,
+        officialUrl: 'https://tribal.nic.in/Scholarship.aspx',
+        officialSource: 'MoTA Scholarship & DBT portal',
+        guidelinesVerifiedOn: new Date('2026-09-29'),
       },
       {
         schemeCode: 'POST_MATRIC_ST',
@@ -153,6 +156,9 @@ const seedDatabase = async () => {
         academicYear: '2025-2026',
         activeStatus: true,
         slotsAvailable: 150000,
+        officialUrl: 'https://tribal.nic.in/downloads/guidelines/post-matric/EDUPostMatricScholarshipPMSforSTstudents230513.pdf',
+        officialSource: 'MoTA PMS-ST guideline (PDF)',
+        guidelinesVerifiedOn: new Date('2026-09-29'),
       },
       {
         schemeCode: 'TOP_CLASS_ST',
@@ -187,6 +193,9 @@ const seedDatabase = async () => {
         academicYear: '2025-2026',
         activeStatus: true,
         slotsAvailable: 1000,
+        officialUrl: 'https://tribal.nic.in/Scholarship.aspx',
+        officialSource: 'MoTA Scholarship & DBT portal',
+        guidelinesVerifiedOn: new Date('2026-09-29'),
       },
       {
         schemeCode: 'NFST_FELLOWSHIP',
@@ -221,6 +230,9 @@ const seedDatabase = async () => {
         academicYear: '2025-2026',
         activeStatus: true,
         slotsAvailable: 750,
+        officialUrl: 'https://tribal.nic.in/Scholarship.aspx',
+        officialSource: 'MoTA Scholarship & DBT portal',
+        guidelinesVerifiedOn: new Date('2026-09-29'),
       },
       {
         schemeCode: 'NOS_OVERSEAS',
@@ -255,6 +267,9 @@ const seedDatabase = async () => {
         academicYear: '2025-2026',
         activeStatus: true,
         slotsAvailable: 20,
+        officialUrl: 'https://tribal.nic.in/Scholarship.aspx',
+        officialSource: 'MoTA Scholarship & DBT portal',
+        guidelinesVerifiedOn: new Date('2026-09-29'),
       },
     ];
 

@@ -90,6 +90,14 @@ const documentVerificationSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    integrityChecks: {
+      type: Array,
+      default: [],
+    },
+    fileMetadata: {
+      type: mongoose.Schema.Types.Mixed,
+      default: {},
+    },
     aiFlags: [aiFlagSchema],
     humanVerificationStatus: {
       type: String,

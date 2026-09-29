@@ -60,6 +60,10 @@ const documentSchema = new mongoose.Schema(
       required: true,
       index: true, // SHA-256 hash for duplicate/fraud detection
     },
+    integritySummary: {
+      passed: { type: Number, default: 0 },
+      total: { type: Number, default: 0 },
+    },
     status: {
       type: String,
       enum: [

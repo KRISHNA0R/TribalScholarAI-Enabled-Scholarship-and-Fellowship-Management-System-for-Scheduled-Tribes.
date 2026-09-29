@@ -1,0 +1,62 @@
+export default {
+  'adash.welcomeName': 'स्वागत है, {name}',
+  'adash.stCandidateVerified': 'अनुसूचित जनजाति उम्मीदवार सत्यापित',
+  'adash.tribe': 'जनजाति:',
+  'adash.state': 'राज्य:',
+  'adash.dbtAadhaarLinked': 'DBT आधार लिंक्ड: सक्रिय',
+  'adash.applyNewScheme': 'नई योजना के लिए आवेदन करें',
+
+  'adash.deficiencyTitle': 'कार्रवाई आवश्यक: {count} कमी का निवारण बाकी',
+  'adash.deficiencySubtitle':
+    'सत्यापन अधिकारियों ने दस्तावेज़ या फ़ील्ड में सुधार का अनुरोध किया है। कृपया वैधानिक समय-सीमा के भीतर समाधान करें।',
+  'adash.resolveNow': 'अभी समाधान करें',
+
+  'adash.myApplications': 'मेरे छात्रवृत्ति आवेदन ({count})',
+  'adash.loadingApplications': 'आपके आवेदन लोड हो रहे हैं...',
+  'adash.noApplicationsTitle': 'अभी तक कोई आवेदन नहीं बनाया गया है',
+  'adash.noApplicationsDesc':
+    'MoTA की 5 आधिकारिक छात्रवृत्ति और फेलोशिप योजनाओं को देखें और अपना आवेदन यात्रा शुरू करें।',
+  'adash.browseSchemes': 'उपलब्ध योजनाएँ देखें',
+
+  'adash.applicationNo': 'आवेदन संख्या: {number}',
+  'adash.defaultSchemeName': 'MoTA योजना',
+  'adash.currentStage': 'वर्तमान चरण:',
+  'adash.aiConfidence': 'AI सत्यापन विश्वास स्तर:',
+  'adash.queue': 'कतार:',
+  'adash.sanctionOrder': 'स्वीकृति आदेश:',
+  'adash.approvedAmount': 'स्वीकृत राशि: {amount} प्रत्यक्ष लाभ अंतरण के माध्यम से',
+  'adash.submittedLabel': 'जमा:',
+  'adash.resumeDraft': 'ड्राफ्ट जारी रखें',
+  'adash.viewFullDetails': 'पूरा विवरण देखें',
+
+  'adash.studentDemographics': 'सत्यापित छात्र जनांकिकी',
+  'adash.scheduledTribe': 'अनुसूचित जनजाति:',
+  'adash.stCertificate': 'ST प्रमाणपत्र:',
+  'adash.annualIncome': 'वार्षिक पारिवारिक आय:',
+  'adash.educationLevel': 'शिक्षा स्तर:',
+  'adash.aadhaarDbtStatus': 'आधार DBT स्थिति:',
+  'adash.activeSeeded': 'सक्रिय सीडेड (PFMS)',
+  'adash.editFullProfile': 'पूरी छात्र प्रोफ़ाइल संपादित करें',
+
+  'adash.recentAlerts': 'हाल की सूचनाएँ',
+  'adash.noNewNotifications': 'कोई नई सूचना नहीं।',
+  'adash.needHelp': 'सहायता या स्पष्टीकरण चाहिए?',
+  'adash.raiseTicket': 'राज्य कल्याण सेल के साथ सहायता टिकट उठाएँ',
+  'adash.helpdesk': 'हेल्पडेस्क',
+
+  'adash.badge.draft': 'ड्राफ्ट',
+  'adash.badge.underVerification': 'सत्यापनाधीन',
+  'adash.badge.deficiencyAction': 'कमी का निवारण आवश्यक',
+  'adash.badge.correctionSubmitted': 'सुधार जमा किया गया',
+  'adash.badge.sanctioned': 'स्वीकृत',
+  'adash.badge.disbursedDbt': 'DBT के माध्यम से वितरित',
+  'adash.badge.rejected': 'अस्वीकृत',
+
+  'adash.status.UNDER_VERIFICATION': 'सत्यापनाधीन',
+  'adash.status.CORRECTION_SUBMITTED': 'सुधार जमा किया गया',
+  'adash.status.SHORTLISTED': 'शॉर्टलिस्टेड',
+  'adash.status.SANCTIONED': 'स्वीकृत',
+  'adash.status.SCRUTINY_PENDING': 'जाँच लंबित',
+  'adash.status.SELECTION_REVIEW': 'चयन समीक्षा',
+  'adash.status.DISBURSEMENT_PENDING': 'वितरण लंबित',
+};

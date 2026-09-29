@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
 import { useNotification } from '../context/NotificationContext.jsx';
+import { useAccessibility } from '../context/AccessibilityContext.jsx';
 import { GraduationCap, Lock, Mail, ArrowRight, ShieldCheck, Zap } from 'lucide-react';
 
 const LoginPage = () => {
@@ -10,6 +11,7 @@ const LoginPage = () => {
   const [loading, setLoading] = useState(false);
 
   const { login, switchDemoRole } = useAuth();
+  const { t, language, setLanguage } = useAccessibility();
   const { addToast } = useNotification();
   const navigate = useNavigate();
   const location = useLocation();
@@ -78,15 +80,33 @@ const LoginPage = () => {
       <div className="max-w-md w-full space-y-6">
         {/* Header */}
         <div className="text-center space-y-2">
-          <div className="w-12 h-12 rounded-xl bg-gov-navy-900 text-amber-400 flex items-center justify-center mx-auto shadow-md border border-amber-500/30">
-            <GraduationCap className="w-6 h-6" />
-          </div>
+          <img
+            src="/logotri.png"
+            alt="TribalScholar AI logo"
+            width={48}
+            height={48}
+            className="w-12 h-12 rounded-xl object-contain bg-white mx-auto shadow-md border border-gov-navy-200"
+          />
           <h2 className="text-2xl font-extrabold text-gov-navy-950 tracking-tight">
-            Sign In to TribalScholar AI
+            {t('login.title')}
           </h2>
           <p className="text-xs text-slate-600">
-            Official Ministry of Tribal Affairs Scholarship Management System
+            {t('login.subtitle')}
           </p>
+          {/* Language quick selector for applicants */}
+          <div className="flex justify-center pt-1">
+            <select
+              value={language}
+              onChange={(e) => setLanguage(e.target.value)}
+              aria-label={t('common.language')}
+              className="bg-white border border-slate-300 rounded-md px-2 py-1 text-xs text-slate-700 focus:outline-none focus:border-gov-navy-600 cursor-pointer"
+            >
+              <option value="en">English (EN)</option>
+              <option value="hi">हिंदी (HI)</option>
+              <option value="bn">বাংলা (BN)</option>
+              <option value="sat">ᱥᱟᱱᱛᱟᱲᱤ (SAT)</option>
+            </select>
+          </div>
         </div>
 
         {/* Demo Fast Logins Box for Judges */}

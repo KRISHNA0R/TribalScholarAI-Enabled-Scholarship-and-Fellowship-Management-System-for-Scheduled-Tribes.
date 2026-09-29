@@ -24,6 +24,7 @@ const auditLogSchema = new mongoose.Schema(
         'APPLICATION_UPDATED',
         'APPLICATION_SUBMITTED',
         'DOCUMENT_UPLOADED',
+        'DOCUMENT_REJECTED',
         'OCR_COMPLETED',
         'RULE_EVALUATED',
         'DEFICIENCY_RAISED',

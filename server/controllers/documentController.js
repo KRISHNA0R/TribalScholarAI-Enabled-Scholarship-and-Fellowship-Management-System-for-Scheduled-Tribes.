@@ -1,9 +1,11 @@
 import path from 'path';
+import fs from 'fs';
 import Document from '../models/Document.js';
 import DocumentVerification from '../models/DocumentVerification.js';
 import ApplicantProfile from '../models/ApplicantProfile.js';
 import Application from '../models/Application.js';
 import { performOCR, calculateDocumentHash } from '../services/ai/ocrService.js';
+import { verifyUploadIntegrity, sha256Hex } from '../services/fileIntegrityService.js';
 import { classifyAndValidateDocument } from '../services/ai/documentClassifier.js';
 import { detectAnomalies } from '../services/ai/anomalyService.js';
 import { logAuditEvent } from '../services/auditService.js';
@@ -24,7 +26,41 @@ export const uploadDocument = async (req, res, next) => {
     }
 
     const profile = await ApplicantProfile.findById(application.profileId);
-    const docHash = calculateDocumentHash(req.file.buffer || req.file.filename);
+
+    // 0. REAL file-integrity verification over actual file bytes.
+    //    Rejects renamed/forged/truncated files before any record is created.
+    const fileBuffer = fs.readFileSync(req.file.path);
+    const integrity = verifyUploadIntegrity({
+      buffer: fileBuffer,
+      originalName: req.file.originalname,
+      mimeType: req.file.mimetype,
+      sizeBytes: req.file.size,
+    });
+    if (!integrity.passedAll) {
+      fs.unlink(req.file.path, () => {});
+      await logAuditEvent({
+        userId: req.user._id,
+        userName: req.user.name,
+        userRole: req.user.role,
+        action: 'DOCUMENT_REJECTED',
+        entityType: 'Document',
+        entityId: application._id,
+        reason: `Rejected ${docType} (${req.file.originalname}): ${integrity.checks
+          .filter((c) => !c.passed)
+          .map((c) => c.detail)
+          .join('; ')}`,
+      });
+      return res.status(400).json({
+        success: false,
+        errorCode: 'FILE_INTEGRITY_FAILED',
+        message:
+          'Uploaded file failed authenticity verification: its contents do not match a valid PDF/JPG/PNG/WEBP document. Please upload a genuine scan.',
+        data: { integrityChecks: integrity.checks },
+      });
+    }
+
+    // SHA-256 over real file bytes (previously hashed the random stored filename)
+    const docHash = sha256Hex(fileBuffer);
 
     // 1. Mark any previous document of this type as not current version
     await Document.updateMany(
@@ -117,7 +153,7 @@ export const uploadDocument = async (req, res, next) => {
       });
     }
 
-    // 6. Save Document Verification Record
+    // 6. Save Document Verification Record (with real integrity evidence)
     const verification = await DocumentVerification.create({
       documentId: document._id,
       applicationId,
@@ -126,8 +162,10 @@ export const uploadDocument = async (req, res, next) => {
       fieldConfidences: ocrResult.fieldConfidences,
       overallConfidence: ocrResult.overallConfidence,
       classificationConfidence: classification.classificationConfidence,
-      isReadable: classification.isReadable,
+      isReadable: classification.isReadable && integrity.checks.every((c) => c.passed || !c.hardFail),
       isTampered: false,
+      integrityChecks: integrity.checks,
+      fileMetadata: integrity.metadata,
       aiFlags: combinedFlags,
       humanVerificationStatus: 'PENDING',
     });
@@ -136,6 +174,10 @@ export const uploadDocument = async (req, res, next) => {
     document.status = combinedFlags.length > 0 ? 'MANUAL_REVIEW' : 'VERIFIED';
     document.ocrStatus = 'COMPLETED';
     document.ocrConfidence = ocrResult.overallConfidence;
+    document.integritySummary = {
+      passed: integrity.checks.filter((c) => c.passed).length,
+      total: integrity.checks.length,
+    };
     await document.save();
 
     await logAuditEvent({
@@ -160,12 +202,14 @@ export const uploadDocument = async (req, res, next) => {
 
     res.status(201).json({
       success: true,
-      message: 'Document uploaded and analyzed with AI OCR pipeline.',
+      message: 'Document uploaded, integrity-verified and analyzed with AI OCR pipeline.',
       data: {
         document,
         verification,
         extractedData: ocrResult.extractedData,
         fieldConfidences: ocrResult.fieldConfidences,
+        integrityChecks: integrity.checks,
+        fileMetadata: integrity.metadata,
         aiFlags: combinedFlags,
       },
     });

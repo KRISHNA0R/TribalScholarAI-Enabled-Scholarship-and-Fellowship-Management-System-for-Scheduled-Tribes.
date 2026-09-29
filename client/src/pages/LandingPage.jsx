@@ -23,9 +23,12 @@ import {
   HelpCircle,
   ChevronRight,
   Lock,
+  ExternalLink,
 } from 'lucide-react';
+import { useAccessibility } from '../context/AccessibilityContext.jsx';
 
 const LandingPage = () => {
+  const { t } = useAccessibility();
   const [schemes, setSchemes] = useState([]);
   const [activeFaq, setActiveFaq] = useState(null);
   const [finderForm, setFinderForm] = useState({
@@ -66,20 +69,20 @@ const LandingPage = () => {
 
   const faqs = [
     {
-      q: 'How does AI assist in the scholarship verification process?',
-      a: 'TribalScholar AI utilizes deterministic optical character recognition (OCR) and document intelligence to extract statutory fields (certificate numbers, income figures, academic marks, and issuing authorities) from uploaded documents. The configurable rule engine checks eligibility benchmarks in real time. Crucially, AI only assists: human verification officers make all final approvals, rejections, and deficiency decisions with full audit logging.',
+      q: t('landing.faq1Q'),
+      a: t('landing.faq1A'),
     },
     {
-      q: 'What happens if there is an income or name discrepancy in my uploaded documents?',
-      a: 'If a discrepancy is identified (for example, if declared income is ₹4,50,000 but the OCR engine extracts ₹7,20,000 from the certificate), the system flags the issue for manual scrutiny. An officer reviews the side-by-side evidence and raises a deficiency request with clear remediation instructions. The applicant is notified via in-app alerts and SMS simulation and can upload a corrected document or update the figure without having their application arbitrarily rejected.',
+      q: t('landing.faq2Q'),
+      a: t('landing.faq2A'),
     },
     {
-      q: 'How are scholarship funds disbursed to selected beneficiaries?',
-      a: 'Approved scholarships and fellowships are disbursed directly into the beneficiary’s Aadhaar-seeded bank account via Direct Benefit Transfer (DBT) using the Aadhaar Payment Bridge System (APBS) and Public Financial Management System (PFMS) protocols. This eliminates intermediaries, prevents duplicate claims through SHA-256 document hashing, and enables transparent UTR transaction tracking.',
+      q: t('landing.faq3Q'),
+      a: t('landing.faq3A'),
     },
     {
-      q: 'Can administrators update scheme eligibility rules without altering software code?',
-      a: 'Yes. TribalScholar AI includes an administrative Configurable Scheme Rule Builder. Officers can adjust income ceilings, supported education levels, merit weights, and mandatory document requirements using dynamic operators (==, !=, >, <, >=, <=, IN, NOT IN). Changes are versioned and immediately reflected across the portal.',
+      q: t('landing.faq4Q'),
+      a: t('landing.faq4A'),
     },
   ];
 
@@ -87,24 +90,40 @@ const LandingPage = () => {
     <div className="min-h-screen bg-slate-50 text-slate-900">
       {/* 1. Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-b from-gov-navy-950 via-gov-navy-900 to-gov-navy-800 text-white pt-14 pb-20 px-4 sm:px-6 lg:px-8 border-b border-slate-800">
+        {/* Government portal banner backdrop (banner.jpg) — kept very faint (~15% opacity) */}
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-[0.15]"
+          style={{ backgroundImage: "url('/banner.jpg')" }}
+          aria-hidden="true"
+        ></div>
+        {/* Legibility overlay — gentle, banner stays subtle but visible */}
+        <div
+          className="absolute inset-0 bg-gradient-to-b from-gov-navy-950/45 via-gov-navy-950/35 to-gov-navy-950/60"
+          aria-hidden="true"
+        ></div>
+        {/* Soft vignette behind the headline block for extra contrast */}
+        <div
+          className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(11,43,26,0.35)_0%,transparent_70%)]"
+          aria-hidden="true"
+        ></div>
         <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#f59e0b_1px,transparent_1px)] [background-size:16px_16px]"></div>
 
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="text-center max-w-3xl mx-auto space-y-6">
             <div className="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-semibold px-3 py-1.5 rounded-full backdrop-blur-xs">
               <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-              <span>SIH PS 26239 &bull; Smart India Hackathon 2026</span>
+              <span>{t('landing.heroBadge')}</span>
             </div>
 
             <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
-              One Platform. <br />
+              {t('landing.heroTitleLine1')} <br />
               <span className="bg-gradient-to-r from-amber-400 to-amber-200 bg-clip-text text-transparent">
-                Every Scholarship Journey.
+                {t('landing.heroTitleLine2')}
               </span>
             </h1>
 
             <p className="text-base sm:text-lg text-slate-300 leading-relaxed font-normal max-w-2xl mx-auto">
-              AI-enabled, transparent and secure scholarship & fellowship management for Scheduled Tribe students, powered by the Ministry of Tribal Affairs, Government of India.
+              {t('landing.heroSubtitle')}
             </p>
 
             {/* Hero CTAs */}
@@ -114,14 +133,14 @@ const LandingPage = () => {
                 className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-5 py-3 rounded-lg shadow-lg flex items-center gap-2 text-sm transition-all transform hover:-translate-y-0.5"
               >
                 <Search className="w-4 h-4" />
-                Find My Scheme
+                {t('landing.findMyScheme')}
               </a>
 
               <Link
                 to="/register"
                 className="bg-white/10 hover:bg-white/20 border border-white/20 text-white font-semibold px-5 py-3 rounded-lg text-sm transition-all flex items-center gap-2 backdrop-blur-xs"
               >
-                <span>Applicant Registration</span>
+                <span>{t('landing.applicantRegistration')}</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
 
@@ -130,7 +149,7 @@ const LandingPage = () => {
                 className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-5 py-3 rounded-lg shadow-md flex items-center gap-2 text-sm transition-all"
               >
                 <Zap className="w-4 h-4" />
-                Judge Demo Hub
+                {t('landing.judgeDemoHub')}
               </Link>
             </div>
           </div>
@@ -139,19 +158,19 @@ const LandingPage = () => {
           <div className="mt-14 pt-8 border-t border-slate-800/80 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             <div className="space-y-1">
               <div className="text-2xl sm:text-3xl font-extrabold text-white">50,000+</div>
-              <div className="text-xs text-slate-400 font-medium">ST Students Benefited</div>
+              <div className="text-xs text-slate-400 font-medium">{t('landing.metric1Label')}</div>
             </div>
             <div className="space-y-1">
               <div className="text-2xl sm:text-3xl font-extrabold text-amber-400">₹14.85 Cr</div>
-              <div className="text-xs text-slate-400 font-medium">Disbursed via Direct Benefit Transfer</div>
+              <div className="text-xs text-slate-400 font-medium">{t('landing.metric2Label')}</div>
             </div>
             <div className="space-y-1">
               <div className="text-2xl sm:text-3xl font-extrabold text-emerald-400">97.2%</div>
-              <div className="text-xs text-slate-400 font-medium">AI OCR Extraction Confidence</div>
+              <div className="text-xs text-slate-400 font-medium">{t('landing.metric3Label')}</div>
             </div>
             <div className="space-y-1">
               <div className="text-2xl sm:text-3xl font-extrabold text-white">100%</div>
-              <div className="text-xs text-slate-400 font-medium">Human-in-the-Loop Scrutiny</div>
+              <div className="text-xs text-slate-400 font-medium">{t('landing.metric4Label')}</div>
             </div>
           </div>
         </div>
@@ -163,71 +182,71 @@ const LandingPage = () => {
           <div className="bg-white rounded-2xl shadow-md border border-slate-200 p-6 sm:p-8">
             <div className="flex items-center gap-2.5 mb-2 text-gov-navy-900 font-bold text-lg">
               <Sparkles className="w-5 h-5 text-amber-600" />
-              <h2>Find the Right Scholarship & Fellowship (AI Assistant)</h2>
+              <h2>{t('landing.finderTitle')}</h2>
             </div>
             <p className="text-xs text-slate-600 mb-6">
-              Enter your academic and financial criteria to check eligibility assistance against all 5 official Ministry of Tribal Affairs schemes.
+              {t('landing.finderSubtitle')}
             </p>
 
             <form onSubmit={handleFinderSubmit} className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div>
                 <label className="block text-xs font-semibold text-slate-700 mb-1">
-                  Current Education Level
+                  {t('landing.educationLevelLabel')}
                 </label>
                 <select
                   value={finderForm.educationLevel}
                   onChange={(e) => setFinderForm({ ...finderForm, educationLevel: e.target.value })}
                   className="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none"
                 >
-                  <option value="Class 10">Class 9 / 10 (Pre-Matric)</option>
-                  <option value="Class 12">Class 11 / 12 (Higher Secondary)</option>
-                  <option value="Undergraduate">Undergraduate (B.Tech, B.Sc, BA, etc.)</option>
-                  <option value="Postgraduate">Postgraduate (M.Tech, M.Sc, MA, etc.)</option>
-                  <option value="Ph.D">Ph.D / Doctoral Research</option>
+                  <option value="Class 10">{t('landing.eduLevelClass10')}</option>
+                  <option value="Class 12">{t('landing.eduLevelClass12')}</option>
+                  <option value="Undergraduate">{t('landing.eduLevelUndergraduate')}</option>
+                  <option value="Postgraduate">{t('landing.eduLevelPostgraduate')}</option>
+                  <option value="Ph.D">{t('landing.eduLevelPhd')}</option>
                 </select>
               </div>
 
               <div>
                 <label className="block text-xs font-semibold text-slate-700 mb-1">
-                  Annual Family Income (₹)
+                  {t('landing.incomeLabel')}
                 </label>
                 <select
                   value={finderForm.annualFamilyIncome}
                   onChange={(e) => setFinderForm({ ...finderForm, annualFamilyIncome: e.target.value })}
                   className="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none"
                 >
-                  <option value="150000">Up to ₹1,50,000 per annum</option>
-                  <option value="250000">Up to ₹2,50,000 per annum</option>
-                  <option value="450000">Up to ₹4,50,000 per annum</option>
-                  <option value="600000">Up to ₹6,00,000 per annum</option>
-                  <option value="800000">Up to ₹8,00,000 per annum</option>
+                  <option value="150000">{t('landing.incomeUpto150000')}</option>
+                  <option value="250000">{t('landing.incomeUpto250000')}</option>
+                  <option value="450000">{t('landing.incomeUpto450000')}</option>
+                  <option value="600000">{t('landing.incomeUpto600000')}</option>
+                  <option value="800000">{t('landing.incomeUpto800000')}</option>
                 </select>
               </div>
 
               <div>
                 <label className="block text-xs font-semibold text-slate-700 mb-1">
-                  Study Location
+                  {t('landing.studyLocationLabel')}
                 </label>
                 <select
                   value={finderForm.studyLocation}
                   onChange={(e) => setFinderForm({ ...finderForm, studyLocation: e.target.value })}
                   className="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none"
                 >
-                  <option value="India">Study in India</option>
-                  <option value="Abroad">Study Abroad (QS Top 500)</option>
+                  <option value="India">{t('landing.studyIndia')}</option>
+                  <option value="Abroad">{t('landing.studyAbroad')}</option>
                 </select>
               </div>
 
               <div className="sm:col-span-3 flex items-center justify-between pt-2">
                 <span className="text-[11px] text-slate-500 italic">
-                  * Assistance system based on configurable rules. Final sanction subject to statutory verification.
+                  {t('landing.finderNote')}
                 </span>
                 <button
                   type="submit"
                   disabled={finding}
                   className="bg-gov-navy-900 hover:bg-gov-navy-800 text-white font-bold text-xs px-5 py-2.5 rounded-lg flex items-center gap-2 shadow-xs cursor-pointer transition-colors"
                 >
-                  {finding ? 'Evaluating Rules...' : 'Check Eligible Schemes'}
+                  {finding ? t('landing.evaluatingRules') : t('landing.checkEligibleSchemes')}
                   <ArrowRight className="w-3.5 h-3.5" />
                 </button>
               </div>
@@ -237,7 +256,7 @@ const LandingPage = () => {
             {finderResults && (
               <div className="mt-6 pt-6 border-t border-slate-200 space-y-3">
                 <div className="font-bold text-xs uppercase tracking-wider text-slate-700">
-                  Recommended Schemes Matching Your Criteria:
+                  {t('landing.recommendedHeading')}
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   {finderResults.slice(0, 4).map((rec) => (
@@ -256,25 +275,28 @@ const LandingPage = () => {
                               : 'bg-amber-100 text-amber-800'
                           }`}
                         >
-                          {rec.decision === 'ELIGIBLE' ? 'Potentially Eligible' : 'Manual Review'}
+                          {rec.decision === 'ELIGIBLE'
+                            ? t('landing.potentiallyEligible')
+                            : t('landing.manualReview')}
                         </span>
                       </div>
                       <p className="text-[11px] text-slate-600 line-clamp-2">
                         {rec.scheme.description}
                       </p>
                       <div className="text-[11px] text-emerald-700 font-medium">
-                        Benefit: {rec.scheme.financialBenefits?.benefitSummary || 'Tuition & Allowances covered'}
+                        {t('landing.benefitLabel')}{' '}
+                        {rec.scheme.financialBenefits?.benefitSummary || t('landing.benefitFallback')}
                       </div>
                       <div className="pt-2 flex items-center justify-between">
                         <span className="text-[10px] text-slate-500 font-semibold">
-                          Match Score: {rec.matchScore}/100
+                          {t('landing.matchScore', { score: rec.matchScore })}
                         </span>
                         <Link
                           to="/applicant/application/new"
                           state={{ schemeId: rec.scheme._id }}
                           className="text-xs font-bold text-amber-700 hover:text-amber-800 flex items-center gap-1"
                         >
-                          Apply Now <ChevronRight className="w-3.5 h-3.5" />
+                          {t('common.applyNow')} <ChevronRight className="w-3.5 h-3.5" />
                         </Link>
                       </div>
                     </div>
@@ -290,14 +312,21 @@ const LandingPage = () => {
       <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="text-center max-w-3xl mx-auto mb-12 space-y-2">
           <div className="text-xs font-bold uppercase tracking-wider text-amber-700">
-            Official Portal Directory
+            {t('landing.portalDirectory')}
           </div>
           <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">
-            Supported Ministry of Tribal Affairs Schemes
+            {t('landing.supportedSchemes')}
           </h2>
           <p className="text-xs sm:text-sm text-slate-600">
-            Digital lifecycle management adhering to official guidelines from tribal.nic.in & dbttribal.gov.in.
+            {t('landing.supportedSchemesDesc')}
           </p>
+        </div>
+
+        {/* Official banner crops at staggered positions — same local banner.jpg, different crops/positions */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10" aria-hidden="true">
+          <img src="/banner.jpg" alt="" loading="lazy" width="640" height="235" className="w-full h-32 sm:h-36 object-cover object-left rounded-xl border border-slate-200 shadow-xs" />
+          <img src="/banner.jpg" alt="" loading="lazy" width="640" height="235" className="w-full h-32 sm:h-36 object-cover object-center rounded-xl border border-slate-200 shadow-xs sm:translate-y-3" />
+          <img src="/banner.jpg" alt="" loading="lazy" width="640" height="235" className="w-full h-32 sm:h-36 object-cover object-right rounded-xl border border-slate-200 shadow-xs" />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -312,7 +341,7 @@ const LandingPage = () => {
                     {scheme.schemeCode}
                   </span>
                   <span className="text-[11px] font-semibold text-emerald-700">
-                    Active for 2025-26
+                    {t('landing.activeYear')}
                   </span>
                 </div>
                 <h3 className="font-bold text-sm text-gov-navy-950 leading-snug">
@@ -324,32 +353,44 @@ const LandingPage = () => {
 
                 <div className="pt-2 border-t border-slate-100 space-y-1 text-xs text-slate-700">
                   <div>
-                    <span className="font-semibold text-slate-900">Income Limit:</span> Up to ₹
-                    {scheme.incomeLimit?.toLocaleString('en-IN')}/year
+                    <span className="font-semibold text-slate-900">{t('landing.incomeLimit')}</span>{' '}
+                    {t('landing.upToPerYear', { amount: `₹${scheme.incomeLimit?.toLocaleString('en-IN')}` })}
                   </div>
                   <div>
-                    <span className="font-semibold text-slate-900">Levels:</span>{' '}
+                    <span className="font-semibold text-slate-900">{t('landing.levelsLabel')}</span>{' '}
                     {scheme.educationLevels?.join(', ')}
                   </div>
                   <div className="text-[11px] text-amber-800 bg-amber-50 p-2 rounded border border-amber-200 mt-2">
-                    {scheme.financialBenefits?.benefitSummary || 'Tuition Fee Waiver + Maintenance'}
+                    {scheme.financialBenefits?.benefitSummary || t('landing.benefitSummaryFallback')}
                   </div>
                 </div>
               </div>
 
               <div className="pt-5 border-t border-slate-100 mt-4 flex items-center justify-between">
-                <Link
-                  to="/schemes"
-                  className="text-xs font-semibold text-slate-600 hover:text-slate-900"
-                >
-                  View Criteria
-                </Link>
+                <div className="flex items-center gap-3">
+                  <Link
+                    to="/schemes"
+                    className="text-xs font-semibold text-slate-600 hover:text-slate-900"
+                  >
+                    {t('landing.viewCriteria')}
+                  </Link>
+                  <a
+                    href={scheme.officialUrl || 'https://tribal.nic.in/ScholarshiP.aspx'}
+                    target="_blank"
+                    rel="noreferrer"
+                    title={scheme.officialSource || 'MoTA official guidelines'}
+                    className="text-[11px] font-semibold text-emerald-700 hover:text-emerald-800 flex items-center gap-1"
+                  >
+                    <ExternalLink className="w-3 h-3" />
+                    {t('landing.officialSource')}
+                  </a>
+                </div>
                 <Link
                   to="/applicant/application/new"
                   state={{ schemeId: scheme._id }}
                   className="bg-gov-navy-900 hover:bg-gov-navy-800 text-white font-semibold text-xs px-3.5 py-1.5 rounded-lg flex items-center gap-1 transition-colors"
                 >
-                  Apply <ArrowRight className="w-3 h-3" />
+                  {t('landing.apply')} <ArrowRight className="w-3 h-3" />
                 </Link>
               </div>
             </div>
@@ -362,13 +403,13 @@ const LandingPage = () => {
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-12 space-y-2">
             <div className="text-xs font-bold uppercase tracking-wider text-amber-400">
-              Transparent Digital Architecture
+              {t('landing.architectureEyebrow')}
             </div>
             <h2 className="text-2xl sm:text-3xl font-bold">
-              From Application to Award — End-to-End Workflow
+              {t('landing.workflowTitle')}
             </h2>
             <p className="text-xs text-slate-400">
-              Eliminating paper delays with automated AI assistance and strict human-in-the-loop oversight.
+              {t('landing.workflowDesc')}
             </p>
           </div>
 
@@ -376,38 +417,38 @@ const LandingPage = () => {
             {[
               {
                 step: '01',
-                title: 'Discover & Register',
-                desc: 'Find schemes via rule engine assistance and verify account with simulated OTP.',
+                title: t('landing.step1Title'),
+                desc: t('landing.step1Desc'),
                 icon: Search,
               },
               {
                 step: '02',
-                title: '10-Step Application',
-                desc: 'Structured wizard with draft autosave, demographic, academic and bank details.',
+                title: t('landing.step2Title'),
+                desc: t('landing.step2Desc'),
                 icon: FileText,
               },
               {
                 step: '03',
-                title: 'AI OCR & Document Intelligence',
-                desc: 'Instant field extraction, confidence scoring, SHA-256 duplicate detection.',
+                title: t('landing.step3Title'),
+                desc: t('landing.step3Desc'),
                 icon: Cpu,
               },
               {
                 step: '04',
-                title: 'Human Scrutiny & Deficiency',
-                desc: 'Verification officers inspect discrepancies with full explainability cards.',
+                title: t('landing.step4Title'),
+                desc: t('landing.step4Desc'),
                 icon: Eye,
               },
               {
                 step: '05',
-                title: 'Merit & Selection',
-                desc: 'Selection committee reviews transparent scoring matrix (Academic, Social, Research).',
+                title: t('landing.step5Title'),
+                desc: t('landing.step5Desc'),
                 icon: Award,
               },
               {
                 step: '06',
-                title: 'DBT Disbursement',
-                desc: 'Direct sanction batch release via Aadhaar Payment Bridge with UTR tracking.',
+                title: t('landing.step6Title'),
+                desc: t('landing.step6Desc'),
                 icon: CreditCard,
               },
             ].map((item, idx) => (
@@ -434,34 +475,34 @@ const LandingPage = () => {
             <div className="space-y-4">
               <div className="inline-flex items-center gap-1.5 bg-amber-100 text-amber-900 text-xs font-bold px-2.5 py-1 rounded-md border border-amber-300">
                 <ShieldCheck className="w-4 h-4 text-amber-700" />
-                Ethical & Explainable AI Framework
+                {t('landing.aiFrameworkBadge')}
               </div>
 
               <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 leading-tight">
-                AI Assists. Humans Decide. Rules are Transparent.
+                {t('landing.aiHeadline')}
               </h2>
 
               <p className="text-xs sm:text-sm text-slate-700 leading-relaxed">
-                TribalScholar AI adheres to core responsible GovTech AI principles. AI models analyze document scans and highlight potential discrepancies, but never autonomously reject or approve candidates.
+                {t('landing.aiParagraph')}
               </p>
 
               <div className="space-y-2.5 text-xs text-slate-800">
                 <div className="flex items-start gap-2">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
                   <span>
-                    <strong>Explainable Evidence:</strong> Officers view exact extracted values alongside original certificate scans and confidence ratings.
+                    <strong>{t('landing.point1Label')}</strong> {t('landing.point1Text')}
                   </span>
                 </div>
                 <div className="flex items-start gap-2">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
                   <span>
-                    <strong>Mandatory Override Justification:</strong> Every officer override of an AI flag is permanently recorded in the immutable audit log.
+                    <strong>{t('landing.point2Label')}</strong> {t('landing.point2Text')}
                   </span>
                 </div>
                 <div className="flex items-start gap-2">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
                   <span>
-                    <strong>No Autonomous Rejections:</strong> If an income or name variance is flagged, applicants are given 15 days to remediate through deficiency resolution.
+                    <strong>{t('landing.point3Label')}</strong> {t('landing.point3Text')}
                   </span>
                 </div>
               </div>
@@ -473,43 +514,43 @@ const LandingPage = () => {
                 <div className="flex items-center gap-2">
                   <span className="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse"></span>
                   <span className="font-bold text-xs text-slate-900">
-                    Live Scrutiny Evidence Card (Demo Preview)
+                    {t('landing.evidenceCardTitle')}
                   </span>
                 </div>
                 <span className="text-[10px] font-mono font-semibold bg-amber-100 text-amber-800 px-2 py-0.5 rounded">
-                  ATTENTION REQUIRED
+                  {t('landing.attentionRequired')}
                 </span>
               </div>
 
               <div className="bg-amber-50/80 border border-amber-200 rounded-lg p-3 space-y-1.5 text-xs">
                 <div className="font-bold text-amber-900 flex items-center gap-1.5">
                   <AlertTriangle className="w-4 h-4 text-amber-600" />
-                  Discrepancy: Income Certificate Inconsistency
+                  {t('landing.discrepancyTitle')}
                 </div>
                 <div className="grid grid-cols-2 gap-2 text-[11px] pt-1">
                   <div>
-                    <span className="text-slate-500">Applicant Form Value:</span>
+                    <span className="text-slate-500">{t('landing.applicantFormValue')}</span>
                     <div className="font-bold text-slate-800">₹4,50,000 / annum</div>
                   </div>
                   <div>
-                    <span className="text-slate-500">OCR Extracted Figure:</span>
+                    <span className="text-slate-500">{t('landing.ocrExtractedFigure')}</span>
                     <div className="font-bold text-red-700">₹7,20,000 / annum</div>
                   </div>
                 </div>
                 <div className="text-[10px] text-slate-500 pt-1 border-t border-amber-200">
-                  Algorithm Confidence: 98.6% &bull; Rule: PMS_INC_02 &bull; Action: Manual Officer Verification
+                  {t('landing.algorithmConfidence')}
                 </div>
               </div>
 
               <div className="flex items-center justify-between pt-1">
                 <span className="text-[11px] text-slate-500 font-medium">
-                  Officer Action: Raise Deficiency or Manual Override
+                  {t('landing.officerAction')}
                 </span>
                 <Link
                   to="/demo"
                   className="text-xs font-bold text-gov-navy-900 hover:text-amber-700 flex items-center gap-1"
                 >
-                  Test In Demo Hub <ArrowRight className="w-3.5 h-3.5" />
+                  {t('landing.testInDemoHub')} <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </div>
             </div>
@@ -520,9 +561,9 @@ const LandingPage = () => {
       {/* 6. FAQ Section */}
       <section className="py-16 bg-slate-100 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
         <div className="text-center mb-10 space-y-1">
-          <h2 className="text-2xl font-bold text-slate-900">Frequently Asked Questions</h2>
+          <h2 className="text-2xl font-bold text-slate-900">{t('landing.faqTitle')}</h2>
           <p className="text-xs text-slate-600">
-            Learn more about the AI verification architecture, security, and DBT disbursement.
+            {t('landing.faqSubtitle')}
           </p>
         </div>
 

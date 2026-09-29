@@ -1,0 +1,62 @@
+export default {
+  'adash.welcomeName': 'ᱥᱟᱜᱩᱱ ᱫᱟᱨᱟᱢ, {name}',
+  'adash.stCandidateVerified': 'ST ᱟᱨᱡᱤᱭᱟᱹᱭᱤᱡ ᱯᱚᱨᱠᱷᱟᱹᱣ ᱦᱩᱭᱮᱱᱟ',
+  'adash.tribe': 'ᱡᱟᱹᱛᱤ:',
+  'adash.state': 'ᱯᱚᱱᱚᱛ:',
+  'adash.dbtAadhaarLinked': 'DBT ᱟᱫᱷᱟᱨ ᱡᱚᱲᱟᱣ: ᱪᱟᱹᱞᱩ',
+  'adash.applyNewScheme': 'ᱱᱟᱣᱟ ᱡᱳᱡᱱᱟ ᱞᱟᱹᱜᱤᱫ ᱟᱨᱡᱤᱭᱮᱢ',
+
+  'adash.deficiencyTitle': 'ᱠᱟᱹᱢᱤ ᱞᱟᱹᱠᱛᱤ: {count} ᱠᱚᱢᱤ ᱥᱟᱯᱲᱟᱣ ᱵᱟᱹᱜᱤᱭᱟᱠᱟᱱᱟ',
+  'adash.deficiencySubtitle':
+    'ᱯᱚᱨᱠᱷᱟᱹᱣ ᱚᱯᱷᱤᱥᱟᱨ ᱠᱟᱜᱚᱡᱽ ᱥᱮ ᱚᱞ ᱥᱟᱯᱲᱟᱣ ᱠᱚ ᱠᱷᱚᱡᱽ ᱟᱠᱟᱫᱟ ᱾ ᱚᱠᱛᱚ ᱵᱷᱤᱛᱨᱤ ᱨᱮ ᱥᱟᱯᱲᱟᱣᱢᱮ ᱾',
+  'adash.resolveNow': 'ᱱᱤᱛᱚᱜ ᱥᱟᱯᱲᱟᱣᱢᱮ',
+
+  'adash.myApplications': 'ᱟᱹᱭᱟᱜ ᱥᱠᱚᱞᱟᱨᱥᱤᱯ ᱟᱨᱡᱤ ᱠᱚ ({count})',
+  'adash.loadingApplications': 'ᱟᱢᱟᱜ ᱟᱨᱡᱤ ᱠᱚ ᱟᱹᱜᱩᱭᱚᱜ ᱠᱟᱱᱟ...',
+  'adash.noApplicationsTitle': 'ᱦᱟᱹᱵᱤᱡ ᱡᱟᱦᱟᱸᱱ ᱟᱨᱡᱤ ᱵᱟᱝ ᱵᱮᱱᱟᱣ ᱟᱠᱟᱱᱟ',
+  'adash.noApplicationsDesc':
+    '᱕ ᱜᱚᱴᱟᱝ ᱥᱚᱨᱠᱟᱨᱤ MoTA ᱥᱠᱚᱞᱟᱨᱥᱤᱯ ᱟᱨ ᱯᱷᱮᱞᱚᱥᱤᱯ ᱡᱳᱡᱱᱟ ᱧᱮᱞᱢᱮ ᱟᱨ ᱟᱢᱟᱜ ᱦᱚᱨ ᱮᱦᱚᱵᱽᱢᱮ ᱾',
+  'adash.browseSchemes': 'ᱜᱚᱲᱚ ᱟᱠᱟᱱ ᱡᱳᱡᱱᱟ ᱠᱚ ᱧᱮᱞᱢᱮ',
+
+  'adash.applicationNo': 'ᱟᱨᱡᱤ ᱮᱞ: {number}',
+  'adash.defaultSchemeName': 'MoTA ᱡᱳᱡᱱᱟ',
+  'adash.currentStage': 'ᱱᱤᱛᱚᱜᱟᱜ ᱫᱷᱟᱯ:',
+  'adash.aiConfidence': 'ᱮᱹᱟᱭᱹ ᱯᱚᱨᱠᱷᱟᱹᱣ ᱵᱷᱚᱨᱥᱟ:',
+  'adash.queue': 'ᱛᱟᱹᱞᱠᱟᱹ:',
+  'adash.sanctionOrder': 'ᱢᱟᱱᱟᱣ ᱦᱩᱠᱩᱢ:',
+  'adash.approvedAmount': 'ᱢᱟᱱᱟᱣ ᱨᱚᱠᱚᱢ: {amount} ᱥᱚᱡᱷᱮ ᱴᱟᱠᱟ ᱮᱢ (DBT) ᱛᱮ',
+  'adash.submittedLabel': 'ᱮᱢ ᱦᱩᱭᱮᱱᱟ:',
+  'adash.resumeDraft': 'ᱠᱷᱟᱠᱟ ᱫᱚᱦᱲᱟᱭ ᱮᱦᱚᱵᱽᱢᱮ',
+  'adash.viewFullDetails': 'ᱯᱩᱨᱟᱹ ᱠᱟᱛᱷᱟ ᱧᱮᱞᱢᱮ',
+
+  'adash.studentDemographics': 'ᱯᱚᱨᱠᱷᱟᱹᱣ ᱟᱠᱟᱱ ᱯᱟᱹᱴᱷᱩᱣᱟᱹ ᱠᱟᱛᱷᱟ',
+  'adash.scheduledTribe': 'ᱞᱮᱠᱷᱟ ᱟᱹᱫᱤᱵᱟᱹᱥᱤ:',
+  'adash.stCertificate': 'ST ᱥᱟᱨᱴᱤᱯᱷᱤᱠᱮᱴ:',
+  'adash.annualIncome': 'ᱥᱮᱨᱢᱟᱠᱤᱭᱟᱹ ᱜᱷᱟᱨᱚᱸᱡᱽ ᱟᱨᱡᱟᱣ:',
+  'adash.educationLevel': 'ᱥᱮᱪᱮᱫ ᱛᱷᱚᱠ:',
+  'adash.aadhaarDbtStatus': 'ᱟᱫᱷᱟᱨ DBT ᱦᱟᱞᱚᱛ:',
+  'adash.activeSeeded': 'ᱪᱟᱹᱞᱩ ᱡᱚᱲᱟᱣ (PFMS)',
+  'adash.editFullProfile': 'ᱯᱩᱨᱟᱹ ᱯᱟᱹᱴᱷᱩᱣᱟᱹ ᱠᱟᱛᱷᱟ ᱥᱟᱯᱲᱟᱣᱢᱮ',
+
+  'adash.recentAlerts': 'ᱱᱟᱣᱟ ᱠᱷᱚᱵᱚᱨ ᱠᱚ',
+  'adash.noNewNotifications': 'ᱱᱟᱣᱟ ᱠᱷᱚᱵᱚᱨ ᱵᱟᱝ ᱢᱮᱱᱟᱜᱼᱟ ᱾',
+  'adash.needHelp': 'ᱜᱚᱲᱚ ᱞᱟᱹᱠᱛᱤᱭᱟᱹᱱᱟ?',
+  'adash.raiseTicket': 'ᱯᱚᱱᱚᱛ ᱜᱚᱲᱚ ᱚᱲᱟᱜ ᱥᱟᱶ ᱟᱨᱡᱤ ᱨᱟᱠᱟᱵᱽᱢᱮ',
+  'adash.helpdesk': 'ᱜᱚᱲᱚ ᱰᱮᱥᱠ',
+
+  'adash.badge.draft': 'ᱠᱟᱪᱷᱟ ᱚᱞ',
+  'adash.badge.underVerification': 'ᱯᱚᱨᱠᱷᱟᱹᱣ ᱪᱟᱞᱟᱜ ᱠᱟᱱᱟ',
+  'adash.badge.deficiencyAction': 'ᱠᱚᱢᱤ ᱠᱟᱹᱢᱤ ᱞᱟᱹᱠᱛᱤ',
+  'adash.badge.correctionSubmitted': 'ᱥᱟᱯᱲᱟᱣ ᱮᱢ ᱦᱩᱭᱮᱱᱟ',
+  'adash.badge.sanctioned': 'ᱢᱟᱱᱟᱣᱮᱱᱟ',
+  'adash.badge.disbursedDbt': 'DBT ᱛᱮ ᱮᱢ ᱦᱩᱭᱮᱱᱟ',
+  'adash.badge.rejected': 'ᱟᱞᱚᱭᱮᱱᱟ',
+
+  'adash.status.UNDER_VERIFICATION': 'ᱯᱚᱨᱠᱷᱟᱹᱣ ᱪᱟᱞᱟᱜ ᱠᱟᱱᱟ',
+  'adash.status.CORRECTION_SUBMITTED': 'ᱥᱟᱯᱲᱟᱣ ᱮᱢ ᱦᱩᱭᱮᱱᱟ',
+  'adash.status.SHORTLISTED': 'ᱵᱟᱪᱷᱟᱣ ᱛᱟᱹᱞᱠᱟᱹᱨᱮ',
+  'adash.status.SANCTIONED': 'ᱢᱟᱱᱟᱣᱮᱱᱟ',
+  'adash.status.SCRUTINY_PENDING': 'ᱯᱚᱨᱠᱷᱟᱹᱣ ᱛᱟᱸᱜᱤᱨᱮ',
+  'adash.status.SELECTION_REVIEW': 'ᱵᱟᱪᱷᱟᱣ ᱵᱤᱪᱟᱹᱨ',
+  'adash.status.DISBURSEMENT_PENDING': 'ᱴᱟᱠᱟ ᱮᱢ ᱛᱟᱸᱜᱤᱨᱮ',
+};

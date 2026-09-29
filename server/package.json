@@ -1,7 +1,7 @@
 {
   "name": "tribal-scholar-ai-server",
   "version": "1.0.0",
-  "description": "Backend API for TribalScholar AI - SIH PS 26239",
+  "description": "Backend API for TribalScholar AI",
   "main": "server.js",
   "type": "module",
   "scripts": {
