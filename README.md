@@ -25,6 +25,15 @@
 
 `664 translation keys` · `13 namespaces` · `4 languages` · `full key parity enforced in CI`
 
+### 🎬 Prototype Walkthrough
+
+[![TribalScholar AI — prototype walkthrough](https://img.youtube.com/vi/fJboODcPgho/maxresdefault.jpg)](https://youtu.be/fJboODcPgho)
+
+**▶ Watch on YouTube** → https://youtu.be/fJboODcPgho
+
+*A 2-minute guided tour: login → AI scheme finder → 10-step application → document upload and
+integrity verification → officer scrutiny → selection → DBT disbursement → multilingual support.*
+
 </div>
 
 ---
