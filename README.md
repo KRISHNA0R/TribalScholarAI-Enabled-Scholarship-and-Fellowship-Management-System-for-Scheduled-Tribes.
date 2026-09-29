@@ -1,9 +1,15 @@
 <div align="center">
 
+<img src="client/public/logotri.png" alt="TribalScholar AI logo" width="140" />
+
 # TribalScholar AI
 
-### AI-Enabled Scholarship & Fellowship Management System for Scheduled Tribes
+### ✨ *Every Tribal scholar — from eligibility to empowerment — verified, transparent, and in their own language.*
+
+**AI-Enabled Scholarship & Fellowship Management System for Scheduled Tribes**
 **Ministry of Tribal Affairs, Government of India**
+
+<img src="client/public/banner.jpg" alt="TribalScholar AI — scholarship, verification and disbursement for Scheduled Tribes" width="100%" />
 
 [![CI](https://github.com/KRISHNA0R/TribalScholarAI-Enabled-Scholarship-and-Fellowship-Management-System-for-Scheduled-Tribes/actions/workflows/ci.yml/badge.svg)](https://github.com/KRISHNA0R/TribalScholarAI-Enabled-Scholarship-and-Fellowship-Management-System-for-Scheduled-Tribes/actions/workflows/ci.yml)
 [![Node](https://img.shields.io/badge/Node-20-3FA512?logo=node.js&logoColor=white)](https://nodejs.org)
@@ -16,6 +22,26 @@
 [![License](https://img.shields.io/badge/License-MIT-16A34A.svg)](LICENSE)
 
 **Languages:** `English` · `हिन्दी` · `বাংলা` · `ᱥᱟᱱᱛᱟᱲᱤ (Santali / Ol Chiki)`
+
+`664 translation keys` · `13 namespaces` · `4 languages` · `full key parity enforced in CI`
+
+</div>
+
+---
+
+<div align="center">
+
+### 🌿 Mission
+
+> *"The Ministry of Tribal Affairs exists for the integrated socio-economic development of the
+> Scheduled Tribes — and education is its strongest instrument."*
+> — Ministry of Tribal Affairs, Government of India
+
+**TribalScholar AI puts that intent into software.** One platform carries a tribal student from
+*discovering a scheme* → *submitting an application in their own language* → *getting documents
+genuinely verified* → *being selected on transparent merit* → *receiving money in their Aadhaar-seeded
+DBT account*. Every step is logged, every AI suggestion is human-reviewed, and nothing is approved by a
+black box.
 
 </div>
 
@@ -241,6 +267,19 @@ Deep forest-green primary, saffron accent, cream surfaces — a tribal identity 
 professional rather than ornamental. Subtle motif work (`.tribal-divider`, `.tribal-texture`,
 `.tribal-corners`), 40px minimum touch targets, visible `focus-visible` outlines, and a real
 **Dark / Light mode** where dark mode forces pure-white text for contrast.
+
+### 🖼️ Brand Assets
+
+Both assets are committed in the repo and used everywhere — navbar, login, register, landing,
+footer, favicon, and this README.
+
+| Asset | Path | Size | Used as |
+|---|---|---|---|
+| **Logo** | [`client/public/logotri.png`](client/public/logotri.png) | 512 × 512 · 246 KB | Navbar, Login, Register, Landing, Footer, favicon, apple-touch-icon |
+| **Hero banner** | [`client/public/banner.jpg`](client/public/banner.jpg) | 1920 × 706 · 237 KB | Landing hero (15% opacity + vignette), scheme showcase grid, README header |
+
+Referenced from code as `/logotri.png` and `/banner.jpg` (Vite serves everything in
+`client/public/` at the site root in both dev and production builds).
 
 ---
 
